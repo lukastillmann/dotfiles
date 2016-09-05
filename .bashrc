@@ -104,6 +104,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 alias gs='git status'
+alias ..='cd ..'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
