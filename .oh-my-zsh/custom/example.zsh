@@ -8,3 +8,5 @@
 # brainstormr=~/Projects/development/planetargon/brainstormr
 # cd $brainstormr
 #
+#
+alias amun='ssh lukas@62.99.231.221'
