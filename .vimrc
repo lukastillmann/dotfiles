@@ -16,6 +16,9 @@ Plugin 'VundleVim/Vundle.vim'
 " Plugin 'tpope/vim-fugitive'
 " emmet
 Plugin 'mattn/emmet-vim'
+Plugin 'Raimondi/delimitMate'
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
@@ -57,3 +60,37 @@ set tabstop=3
 
 syntax enable
 colorscheme evening
+
+" highlight search results
+set hlsearch
+
+" show matching brackets 
+set showmatch
+
+" Starting from vim 7.3 undo can be persisted across sessions
+" http://www.reddit.com/r/vim/comments/kz84u/what_are_some_simple_yet_mindblowing_tweaks_to/c2onmqe
+if has("persistent_undo")
+	set undodir=~/.vim/undodir
+	set undofile
+endif
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+" Remember info about open buffers on close
+set viminfo^=%
+
+" Reload changes to .vimrc automatically
+autocmd BufWritePost  ~/.vimrc source ~/.vimrc
+
+" ---- Mappings ----
+"Remap VIM 0 to first non-blank character
+"" map 0 ^  
+
+" simpler switching between panes
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
