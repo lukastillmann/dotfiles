@@ -17,6 +17,9 @@ Plugin 'VundleVim/Vundle.vim'
 " emmet
 Plugin 'mattn/emmet-vim'
 Plugin 'Raimondi/delimitMate'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'simeji/winresizer.git' 
+Plugin 'altercation/vim-colors-solarized'
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -53,13 +56,17 @@ set number
 set autoindent
 set ai
 
+set nospell
+
 set foldmethod=indent
 
-set shiftwidth=3
-set tabstop=3
+set shiftwidth=2
+set tabstop=2
+set expandtab
 
 syntax enable
-colorscheme evening
+colorscheme solarized
+set background=dark
 
 " highlight search results
 set hlsearch
@@ -94,3 +101,13 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+
+" split new panes left/down/up/right
+nnoremap <C-W><C-J> <C-W>s<C-W><C-J>  
+nnoremap <C-W><C-K> <C-W>s<C-W><C-K>
+nnoremap <C-W><C-L> <C-W>v<C-W><C-L>
+nnoremap <C-W><C-H> <C-W>v<C-W><C-H>
+
+" mapping to split lines (e.g. between brackets)
+imap <C-c> <CR><Esc>O
