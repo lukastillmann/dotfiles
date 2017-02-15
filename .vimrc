@@ -20,6 +20,7 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'simeji/winresizer.git' 
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'scrooloose/nerdtree'
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -111,3 +112,9 @@ nnoremap <C-W><C-H> <C-W>v<C-W><C-H>
 
 " mapping to split lines (e.g. between brackets)
 imap <C-c> <CR><Esc>O
+
+" mapping to open NERDTree
+map <C-n> :NERDTreeToggle<CR>
+" close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
