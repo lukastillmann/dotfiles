@@ -21,6 +21,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'simeji/winresizer.git' 
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-commentary'
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
 " plugin from http://vim-scripts.org/vim/scripts.html
