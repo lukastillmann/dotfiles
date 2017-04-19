@@ -22,6 +22,10 @@ Plugin 'simeji/winresizer.git'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-commentary'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'mhinz/vim-grepper'
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -51,7 +55,6 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-
 set ruler
 set number
 
@@ -65,6 +68,9 @@ set foldmethod=indent
 set shiftwidth=2
 set tabstop=2
 set expandtab
+
+set cursorline " highlight the current line
+nnoremap <silent> <leader>, :noh<cr> " Stop highlight after searching
 
 syntax enable
 colorscheme solarized
@@ -98,12 +104,27 @@ autocmd BufWritePost  ~/.vimrc source ~/.vimrc
 "Remap VIM 0 to first non-blank character
 "" map 0 ^  
 
-" simpler switching between panes
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
+" switching between panes
+" taken over by vim-tmux-navigator
+" nnoremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+" nnoremap <C-H> <C-W><C-H>
+
+" resize panes with arrow keys
+nnoremap <silent> <Right> :vertical resize +5<cr>
+nnoremap <silent> <Left> :vertical resize -5<cr>
+nnoremap <silent> <Up> :resize +5<cr>
+nnoremap <silent> <Down> :resize -5<cr>
+
+" Auto resize Vim splits to active split
+set winwidth=104
+set winheight=5
+set winminheight=5
+set winheight=999
 
 " split new panes left/down/up/right
 nnoremap <C-W><C-J> <C-W>s<C-W><C-J>  
@@ -119,3 +140,12 @@ map <C-n> :NERDTreeToggle<CR>
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" double dashes to toggle comments (with vim-commentary plugin)
+map // gcc
+
+" pangloss/vim-javascript
+let g:javscript_plugin_flow = 1
+" mxw/vim-jsx
+" By default, JSX syntax highlighting and indenting will be enabled only for
+" files with the .jsx extension. If you would like JSX in .js files, add
+let g:jsx_ext_required = 0
