@@ -25,7 +25,9 @@ Plugin 'tpope/vim-commentary'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'mhinz/vim-grepper'
+Plugin 'kien/ctrlp.vim'
+Plugin 'vim-syntastic/syntastic'  
+" Plugin 'mhinz/vim-grepper'
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -100,6 +102,9 @@ set viminfo^=%
 " Reload changes to .vimrc automatically
 autocmd BufWritePost  ~/.vimrc source ~/.vimrc
 
+" deactivate safe write
+set backupcopy=yes
+
 " ---- Mappings ----
 "Remap VIM 0 to first non-blank character
 "" map 0 ^  
@@ -150,5 +155,12 @@ let g:javscript_plugin_flow = 1
 " files with the .jsx extension. If you would like JSX in .js files, add
 let g:jsx_ext_required = 0
 
-" disable save write feature to make file change watchers work
-:set backupcopy=yes
+" Syntastic recommended settings (see github or :help syntastic for more)
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
