@@ -29,6 +29,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'elzr/vim-json'
 Plugin 'vim-airline/vim-airline'
+Plugin 'morhetz/gruvbox'
 " Plugin 'vim-airline/vim-airline-themes'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
@@ -75,7 +76,8 @@ set cursorline " highlight the current line
 nnoremap <silent> <leader>, :noh<cr> " Stop highlight after searching
 
 syntax enable
-colorscheme solarized
+let g:gruvbox_italic=1
+colorscheme gruvbox
 set background=dark
 
 " highlight search results
@@ -155,13 +157,11 @@ let g:javscript_plugin_flow = 1
 " files with the .jsx extension. If you would like JSX in .js files, add
 let g:jsx_ext_required = 0
 
-" Syntastic recommended settings (see github or :help syntastic for more)
-" not needed when using vim-airline
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
+" Syntastic
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_auto_loc_list = 0 " Don't auto open/close location list
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_mode="passive"
+let g:syntastic_enable_signs=0
+nnoremap <F7> :SyntasticCheck<CR> :lopen<CR>
