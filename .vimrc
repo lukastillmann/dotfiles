@@ -18,7 +18,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'simeji/winresizer.git' 
+Plugin 'simeji/winresizer.git'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-commentary'
@@ -26,9 +26,9 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'kien/ctrlp.vim'
-Plugin 'vim-syntastic/syntastic'  
-" Plugin 'mhinz/vim-grepper'
-" Plugin 'vim-airline/vim-airline'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'elzr/vim-json'
+Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
@@ -81,7 +81,7 @@ set background=dark
 " highlight search results
 set hlsearch
 
-" show matching brackets 
+" show matching brackets
 set showmatch
 
 " Starting from vim 7.3 undo can be persisted across sessions
@@ -107,7 +107,7 @@ set backupcopy=yes
 
 " ---- Mappings ----
 "Remap VIM 0 to first non-blank character
-"" map 0 ^  
+"" map 0 ^
 
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -132,7 +132,7 @@ set winminheight=5
 set winheight=999
 
 " split new panes left/down/up/right
-nnoremap <C-W><C-J> <C-W>s<C-W><C-J>  
+nnoremap <C-W><C-J> <C-W>s<C-W><C-J>
 nnoremap <C-W><C-K> <C-W>s<C-W><C-K>
 nnoremap <C-W><C-L> <C-W>v<C-W><C-L>
 nnoremap <C-W><C-H> <C-W>v<C-W><C-H>
@@ -156,9 +156,10 @@ let g:javscript_plugin_flow = 1
 let g:jsx_ext_required = 0
 
 " Syntastic recommended settings (see github or :help syntastic for more)
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" not needed when using vim-airline
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
