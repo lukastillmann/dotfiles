@@ -22,27 +22,16 @@ Plugin 'simeji/winresizer.git'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-commentary'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
+Plugin 'pangloss/vim-javascript' " better javascript syntax higlighting
+" Plugin 'mxw/vim-jsx'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-syntastic/syntastic'
-Plugin 'elzr/vim-json'
+" Plugin 'elzr/vim-json'
 Plugin 'vim-airline/vim-airline'
+Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'morhetz/gruvbox'
 " Plugin 'vim-airline/vim-airline-themes'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -109,7 +98,7 @@ set backupcopy=yes
 
 " ---- Mappings ----
 "Remap VIM 0 to first non-blank character
-"" map 0 ^
+map 0 ^
 
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -142,26 +131,20 @@ nnoremap <C-W><C-H> <C-W>v<C-W><C-H>
 " mapping to split lines (e.g. between brackets)
 imap <C-c> <CR><Esc>O
 
-" mapping to open NERDTree
-map <C-n> :NERDTreeToggle<CR>
-" close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
 " double dashes to toggle comments (with vim-commentary plugin)
 map // gcc
 
-" pangloss/vim-javascript
-let g:javscript_plugin_flow = 1
-" mxw/vim-jsx
-" By default, JSX syntax highlighting and indenting will be enabled only for
-" files with the .jsx extension. If you would like JSX in .js files, add
-let g:jsx_ext_required = 0
-
 " Syntastic
+" npm install -g csslint jshint jsonlint
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0 " Don't auto open/close location list
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_mode="passive"
-let g:syntastic_enable_signs=0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+" let g:syntastic_mode="passive"
+" let g:syntastic_enable_signs=0
+let g:syntastic_css_checkers = ['csslint']
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_json_checkers= ['jsonlint']
+let g:syntastic_quiet_messages = { "level": "warnings" }
+
 nnoremap <F7> :SyntasticCheck<CR> :lopen<CR>
