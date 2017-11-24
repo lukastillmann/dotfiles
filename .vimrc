@@ -13,7 +13,6 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
 " emmet
 Plugin 'mattn/emmet-vim'
 Plugin 'Raimondi/delimitMate'
@@ -31,6 +30,7 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'vim-airline/vim-airline'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'morhetz/gruvbox'
+Plugin 'tpope/vim-fugitive'
 " Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
