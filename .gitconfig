@@ -1,0 +1,7 @@
+[core]
+	editor = vim
+[user]
+	name = Lukas Tillmann
+	email = lukas.tillmann@manova.at
+[alias]
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
