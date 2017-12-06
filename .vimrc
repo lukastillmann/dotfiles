@@ -148,3 +148,16 @@ let g:syntastic_json_checkers= ['jsonlint']
 let g:syntastic_quiet_messages = { "level": "warnings" }
 
 nnoremap <F7> :SyntasticCheck<CR> :lopen<CR>
+
+" Functions to remove all gutters (used for tmux copy function)
+nnoremap <F3> :call RemoveGutter()<CR>
+nnoremap <F4> :call AddGutter()<CR>
+
+function! RemoveGutter()
+  execute "set nonumber"
+  execute "GitGutterDisable"
+endfunction
+function! AddGutter()
+  execute "set number"
+  execute "GitGutterEnable"
+endfunction
