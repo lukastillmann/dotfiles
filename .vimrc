@@ -21,8 +21,8 @@ Plugin 'simeji/winresizer.git'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-commentary'
-Plugin 'pangloss/vim-javascript' " better javascript syntax higlighting
-" Plugin 'mxw/vim-jsx'
+Plugin 'pangloss/vim-javascript'          " better javascript syntax higlighting
+Plugin 'mxw/vim-jsx'                      " syntax highlighting and indentation for jsx 
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-syntastic/syntastic'
@@ -31,6 +31,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'morhetz/gruvbox'
 Plugin 'tpope/vim-fugitive'
+Plugin 'prettier/vim-prettier'
 " Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
@@ -161,3 +162,11 @@ function! AddGutter()
   execute "set number"
   execute "GitGutterEnable"
 endfunction
+
+" vim-prettier configuration
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#semi = 'true'
+let g:prettier#config#jsx_bracket_same_line = 'false'
+
+" vim-jsx configuration
+let g:jsx_ext_required = 0
