@@ -97,10 +97,6 @@ autocmd BufWritePost  ~/.vimrc source ~/.vimrc
 " deactivate safe write
 set backupcopy=yes
 
-" ---- Mappings ----
-"Remap VIM 0 to first non-blank character
-map 0 ^
-
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
@@ -167,6 +163,9 @@ endfunction
 let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#semi = 'true'
 let g:prettier#config#jsx_bracket_same_line = 'false'
+nnoremap <F9> :Prettier<CR>
 
 " vim-jsx configuration
 let g:jsx_ext_required = 0
+
+let mapleader = ","
