@@ -33,6 +33,8 @@ Plugin 'morhetz/gruvbox'
 Plugin 'tpope/vim-fugitive'
 Plugin 'prettier/vim-prettier'
 " Plugin 'vim-airline/vim-airline-themes'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'               " default snippets
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -163,9 +165,27 @@ endfunction
 let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#semi = 'true'
 let g:prettier#config#jsx_bracket_same_line = 'false'
+let g:prettier#config#single_quote = 'true'
+" use F9 to trigger Prettier
 nnoremap <F9> :Prettier<CR>
 
 " vim-jsx configuration
 let g:jsx_ext_required = 0
 
 let mapleader = ","
+
+" apply macros with Q
+" hit qq to record, q to stop recording, and Q to apply.
+nnoremap Q @q
+vnoremap Q :norm @q<cr>
+
+" toggle paste mode with leader-z
+set pastetoggle=<leader>z
+
+" UltiSnips needs python support
+" check for python with `:ech has('python')` or `:echo has('python3')`
+" put custom snippets into folder .vim/custom-snippets
+" filename: [language]*.snippet (e.g. javascript-react.snippet) where * is a
+" wildcard and can be anything
+" use 'all' for all language
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "custom-snippets"]
