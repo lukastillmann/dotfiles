@@ -15,10 +15,10 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 " emmet
 Plugin 'mattn/emmet-vim'
-Plugin 'Raimondi/delimitMate'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'simeji/winresizer.git'
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'Raimondi/delimitMate'             " automatic closing of quotes, etc
+Plugin 'airblade/vim-gitgutter'           
+" Plugin 'simeji/winresizer.git'            " resize vim panes with arrow keys
+" Plugin 'altercation/vim-colors-solarized'   " replaced by gruvbox
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-commentary'
 Plugin 'pangloss/vim-javascript'          " better javascript syntax higlighting
@@ -30,17 +30,20 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'vim-airline/vim-airline'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'morhetz/gruvbox'
-Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'               " git wrapper for vim (e.g. :GBlame etc);
 Plugin 'prettier/vim-prettier'
 " Plugin 'vim-airline/vim-airline-themes'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'               " default snippets
+Plugin 'posva/vim-vue'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-scripts/AutoComplPop'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
+" filetype plugin on
 "
 " Brief help
 " :PluginList       - lists configured plugins
@@ -189,3 +192,19 @@ set pastetoggle=<leader>z
 " wildcard and can be anything
 " use 'all' for all language
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "custom-snippets"]
+
+" faster syntax highlighting in vue files
+let g:vue_disable_pre_processors = 1
+
+set omnifunc=syntaxcomplete#Complete
+
+map <C-n> :NERDTreeToggle<CR>
+
+" javascript syntax for helma hac files
+autocmd BufNewFile,BufRead *.hac set filetype=javascript
+autocmd BufNewFile,BufRead *.skin set filetype=html
+
+" increment/decrement number with Alt-a/Alt-x
+" because Ctrl-a is used by tmux
+:nnoremap <A-a> <C-a>
+:nnoremap <A-x> <C-x>
