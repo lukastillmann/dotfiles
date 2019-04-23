@@ -208,3 +208,11 @@ autocmd BufNewFile,BufRead *.skin set filetype=html
 " because Ctrl-a is used by tmux
 :nnoremap <A-a> <C-a>
 :nnoremap <A-x> <C-x>
+
+" allow project specific .vimrc files
+set exrc
+" disable unsave commands in project vimrc
+set secure
+
+" often used commands:
+" <C-W>R - swap splits
