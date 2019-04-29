@@ -7,7 +7,7 @@
 ## copy these line to install all relevant dependencies
 
 # linux
-sudo apt-get update && sudo apt-get upgrade && sudo apt install build-ess cmake python3-dev apache2 keychain
+sudo apt-get update && sudo apt-get upgrade && sudo apt install build-essential cmake python3-dev apache2 keychain default-jre
 
 # vim/tmux
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim && vim +PluginInstall +qall && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/scripts/install_plugins.sh && python3 ~/.vim/bundle/YouCompleteMe/install.sh
@@ -73,7 +73,10 @@ sudo npm install -g prettier gulp-cli
 # JAVA #
 ########
 
-# install java
+# install openjdk from apt
+sudo apt install default-jre
+
+# install java manually from oracle.com
 # download newest java se jdk .tar.gz file
 sudo mkdir /usr/local/java
 # copy tar file to this folder
