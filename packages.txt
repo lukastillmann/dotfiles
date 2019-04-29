@@ -1,5 +1,25 @@
 #/bin/bash
 
+#####################
+# One Line Installs #
+#####################
+
+## copy these line to install all relevant dependencies
+
+# linux
+sudo apt-get update && sudo apt-get upgrade && sudo apt install build-ess cmake python3-dev apache2 keychain
+
+# vim/tmux
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim && vim +PluginInstall +qall && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/scripts/install_plugins.sh && python3 ~/.vim/bundle/YouCompleteMe/install.sh
+
+# node/npm
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash - && sudo apt install nodejs && sudo npm install -g prettier gulp-cli
+
+
+##################
+# Linux packages #
+##################
+
 # install updates
 echo "updating and upgrading packages"
 sudo apt-get update && sudo apt-get upgrade
@@ -11,30 +31,47 @@ sudo apt-get install build-essential cmake python3-dev
 echo "installing apache server"
 sudo apt-get install apache2
 
+# install keychain to manage ssh-agent keys
+# see https://www.funtoo.org/Keychain
+# add "eval `keychain --eval --agents ssh id_rsa`" to .bash_profile
+sudo apt-get install keychain
+
+##############
+# VIM / TMUX #
+##############
+
+# install vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 # YouCompleteMe Vim Plugin
 # - compile (after installing with vundle)
 cd ~/.vim/bundle/YouCompleteMe
 python3 install.py
+
+# install tmux
+sudo apt-get install tmux
+# install tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+echo "Press prefix + I (capital i, as in Install) to fetch the plugins."
+
+# help: install tpm plugins via command line
+~/.tmux/plugins/tpm/scripts/install_plugins.sh
+
+##############
+# NODE / NPM #
+##############
 
 # install nodejs
 echo "installing nodejs 10.x"
 curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
 sudo apt install nodejs
 
-# install prettier globally
-sudo npm install -g prettier
+# install prettier, gulp
+sudo npm install -g prettier gulp-cli
 
-# install tmux
-sudo apt-get install tmux
-# install tpm
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-# install tpm plugins via command line
-~/.tmux/plugins/tpm/scripts/install_plugins.sh
-
-# install keychain to manage ssh-agent keys
-# see https://www.funtoo.org/Keychain
-# add "eval `keychain --eval --agents ssh id_rsa`" to .bash_profile
-sudo apt-get install keychain
+########
+# JAVA #
+########
 
 # install java
 # download newest java se jdk .tar.gz file
