@@ -82,3 +82,12 @@ sudo tar xzvf jdk-12_linux-x64_bin.tar.gz
 sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk-12.0.{x}/bin/java" 1
 # check version
 # java --version
+
+###########
+# RINGOJS #
+###########
+
+# download and install RINGOJS
+wget -P ~/tmp/ https://ringojs.org/releases/1.2.1/ringojs_1.2.1_all.deb
+sudo dpkg -i ~/tmp/ringojs_1.2.1_all.deb
+sudo apt-get install -f
