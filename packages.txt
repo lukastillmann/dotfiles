@@ -15,6 +15,11 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim &
 # node/npm
 curl -sL https://deb.nodesource.com/setup_10.x | sudo bash - && sudo apt install nodejs && sudo npm install -g prettier gulp-cli
 
+# RINGOJS
+wget -P ~/tmp/ https://ringojs.org/releases/1.2.1/ringojs_1.2.1_all.deb && sudo apt install ~/tmp/ringojs_1.2.1_all.deb && sudo mkdir /usr/share/ringojs/bin && sudo ringo-admin install http://packages.ringojs.org/download/rp/latest
+
+# git configs
+sudo git config --global user.email "home@lukastillmann.eu" && sudo git config --global user.name "Lukas Tillmann" && sudo git config --global core.editor "vim"
 
 ##################
 # Linux packages #
@@ -92,5 +97,7 @@ sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk-1
 
 # download and install RINGOJS
 wget -P ~/tmp/ https://ringojs.org/releases/1.2.1/ringojs_1.2.1_all.deb
-sudo dpkg -i ~/tmp/ringojs_1.2.1_all.deb
-sudo apt-get install -f
+sudo apt install ~/tmp/ringojs_1.2.1_all.deb
+# install rp package manager
+sudo mkdir /usr/share/ringojs/bin
+sudo ringo-admin install http://packages.ringojs.org/download/rp/latest
