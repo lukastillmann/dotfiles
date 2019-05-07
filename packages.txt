@@ -91,3 +91,14 @@ sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk-1
 wget -P ~/tmp/ https://ringojs.org/releases/1.2.1/ringojs_1.2.1_all.deb
 sudo dpkg -i ~/tmp/ringojs_1.2.1_all.deb
 sudo apt-get install -f
+
+##############
+# GIT CONFIG #
+##############
+
+# set up base info:
+git config --global user.name "Lukas Tillmann"
+git config --global user.email "home@lukastillmann.eu"
+git config --global core.editor "vim"
+# alias lg
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
