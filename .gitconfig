@@ -1,7 +1,8 @@
 [user]
-	email = home@lukastillmann.eu # remember to change this if necessary!
+	email = home@lukastillmann.eu
 	name = Lukas Tillmann
 [core]
 	editor = vim
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	st = stash list --pretty=format:\"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(70,trunc)%s %C(green)(%ci, %cr) %C(bold blue)<%an>%C(reset)\"
