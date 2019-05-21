@@ -1,3 +1,6 @@
+" Lukas Tillmann
+
+" Vundle {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -18,7 +21,7 @@ Plugin 'mattn/emmet-vim'
 Plugin 'Raimondi/delimitMate'             " automatic closing of quotes, etc
 Plugin 'airblade/vim-gitgutter'           
 " Plugin 'simeji/winresizer.git'            " resize vim panes with arrow keys
-" Plugin 'altercation/vim-colors-solarized'   " replaced by gruvbox
+" Plugi"n 'altercation/vim-colors-solarized'   " replaced by gruvbox
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-commentary'
 Plugin 'pangloss/vim-javascript'          " better javascript syntax higlighting
@@ -33,11 +36,13 @@ Plugin 'morhetz/gruvbox'
 Plugin 'tpope/vim-fugitive'               " git wrapper for vim (e.g. :GBlame etc);
 Plugin 'prettier/vim-prettier'
 " Plugin 'vim-airline/vim-airline-themes'
-Plugin 'SirVer/ultisnips'
+Plugin 'SirVer/ultisnips'                 " snippets
 Plugin 'honza/vim-snippets'               " default snippets
-Plugin 'posva/vim-vue'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-scripts/AutoComplPop'
+Plugin 'posva/vim-vue'                    " syntax highlighting for vue files
+" vim-vue: eslint is necessary: npm i -g eslint eslint-plugin-vue
+Plugin 'kshenoy/vim-signature'            " toggle/display/navigate marks
+Plugin 'w0rp/ale'                         " for using eslint with vim
+Plugin 'neoclide/coc.nvim'                " autocomplete plugin
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -53,33 +58,84 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+" }}}
+
+" Base Options {{{
 set ruler
 set number
 
 set autoindent
 set ai
 
-set nospell
+set nospell                         " disable spell-checking
 
 set foldmethod=indent
+set foldnestmax=10
+set foldlevelstart=10
 
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=3
+set tabstop=3
 set expandtab
 
-set cursorline " highlight the current line
-nnoremap <silent> <leader>, :noh<cr> " Stop highlight after searching
+set cursorline                      " highlight the current line
 
+set wildmenu                        " graphical autocomplete menu for files
+
+set hlsearch                        " highlight search results
+set incsearch                       " search as characters are entered
+set ignorecase                      " ignore case when searching
+
+set showmatch                       " show matching brackets
+
+let mapleader = ","
+
+set modelines=1                     " check first and last line for file specific configs
+
+set exrc                            " allow project specific .vimrc files
+set secure                          " disable unsave commands in project vimrc
+
+set backspace=2                     " make backspace work like other programs
+
+set omnifunc=syntaxcomplete#Complete
+
+" }}}
+
+" Colors {{{
 syntax enable
 let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
+" }}}
 
-" highlight search results
-set hlsearch
+" Mappings {{{
 
-" show matching brackets
-set showmatch
+nnoremap <silent> <leader>, :noh<cr> " Stop highlight after searching
+imap <C-c> <CR><Esc>O       " mapping to split lines (e.g. between brackets)
+
+" double dashes to toggle comments (with vim-commentary plugin)
+map // gcc
+
+" apply macros with Q
+" hit qq to record, q to stop recording, and Q to apply.
+nnoremap Q @q
+vnoremap Q :norm @q<cr>
+
+set pastetoggle=<leader>z " toggle paste mode with leader-z
+
+map <C-n> :NERDTreeToggle<CR>
+
+" increment/decrement number with Alt-a/Alt-x
+" because Ctrl-a is used by tmux
+:nnoremap <A-a> <C-a>
+:nnoremap <A-x> <C-x>
+
+" add new line after opening brackets
+" see https://stackoverflow.com/a/35711195/5888924
+inoremap <expr> <cr> getline(".")[col(".")-2:col(".")-1]=="{}" ? "<cr><esc>O" : "<cr>"
+
+" }}}
+
+" Buffer/Saving {{{
 
 " Starting from vim 7.3 undo can be persisted across sessions
 " http://www.reddit.com/r/vim/comments/kz84u/what_are_some_simple_yet_mindblowing_tweaks_to/c2onmqe
@@ -102,8 +158,10 @@ autocmd BufWritePost  ~/.vimrc source ~/.vimrc
 " deactivate safe write
 set backupcopy=yes
 
-" bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+"}}}
+
+" Pane Handling / Tmux {{{
 
 " switching between panes
 " taken over by vim-tmux-navigator
@@ -130,13 +188,9 @@ nnoremap <C-W><C-K> <C-W>s<C-W><C-K>
 nnoremap <C-W><C-L> <C-W>v<C-W><C-L>
 nnoremap <C-W><C-H> <C-W>v<C-W><C-H>
 
-" mapping to split lines (e.g. between brackets)
-imap <C-c> <CR><Esc>O
+"}}}
 
-" double dashes to toggle comments (with vim-commentary plugin)
-map // gcc
-
-" Syntastic
+" Syntastic {{{
 " npm install -g csslint jshint jsonlint
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0 " Don't auto open/close location list
@@ -150,6 +204,51 @@ let g:syntastic_json_checkers= ['jsonlint']
 let g:syntastic_quiet_messages = { "level": "warnings" }
 
 nnoremap <F7> :SyntasticCheck<CR> :lopen<CR>
+" }}}
+
+" Prettier {{{
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#semi = 'true'
+let g:prettier#config#jsx_bracket_same_line = 'false'
+let g:prettier#config#single_quote = 'true'
+let g:prettier#config#tab_width = 3
+" use F9 to trigger Prettier
+nnoremap <F9> :Prettier<CR>
+" }}}
+
+" UltiSnips {{{
+
+" UltiSnips needs python support
+" check for python with `:ech has('python')` or `:echo has('python3')`
+" put custom snippets into folder .vim/custom-snippets
+" filename: [language]*.snippet (e.g. javascript-react.snippet) where * is a
+" wildcard and can be anything
+" use 'all' for all language
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "custom-snippets"]
+" }}}
+
+" CTRLP {{{
+" let ctrlp ignore files and directorys in .gitignore files
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+" }}}
+
+" Other plugins {{{
+
+" vim-jsx configuration
+let g:jsx_ext_required = 0
+" faster syntax highlighting in vue files
+let g:vue_disable_pre_processors = 1
+" }}}
+
+" Misc {{{
+
+" javascript syntax for helma hac files
+autocmd BufNewFile,BufRead *.hac set filetype=javascript
+autocmd BufNewFile,BufRead *.skin set filetype=html
+
+" }}}
+
+" Custom Functions {{{
 
 " Functions to remove all gutters (used for tmux copy function)
 nnoremap <F3> :call RemoveGutter()<CR>
@@ -164,55 +263,10 @@ function! AddGutter()
   execute "GitGutterEnable"
 endfunction
 
-" vim-prettier configuration
-let g:prettier#config#bracket_spacing = 'true'
-let g:prettier#config#semi = 'true'
-let g:prettier#config#jsx_bracket_same_line = 'false'
-let g:prettier#config#single_quote = 'true'
-" use F9 to trigger Prettier
-nnoremap <F9> :Prettier<CR>
+" }}}
 
-" vim-jsx configuration
-let g:jsx_ext_required = 0
-
-let mapleader = ","
-
-" apply macros with Q
-" hit qq to record, q to stop recording, and Q to apply.
-nnoremap Q @q
-vnoremap Q :norm @q<cr>
-
-" toggle paste mode with leader-z
-set pastetoggle=<leader>z
-
-" UltiSnips needs python support
-" check for python with `:ech has('python')` or `:echo has('python3')`
-" put custom snippets into folder .vim/custom-snippets
-" filename: [language]*.snippet (e.g. javascript-react.snippet) where * is a
-" wildcard and can be anything
-" use 'all' for all language
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "custom-snippets"]
-
-" faster syntax highlighting in vue files
-let g:vue_disable_pre_processors = 1
-
-set omnifunc=syntaxcomplete#Complete
-
-map <C-n> :NERDTreeToggle<CR>
-
-" javascript syntax for helma hac files
-autocmd BufNewFile,BufRead *.hac set filetype=javascript
-autocmd BufNewFile,BufRead *.skin set filetype=html
-
-" increment/decrement number with Alt-a/Alt-x
-" because Ctrl-a is used by tmux
-:nnoremap <A-a> <C-a>
-:nnoremap <A-x> <C-x>
-
-" allow project specific .vimrc files
-set exrc
-" disable unsave commands in project vimrc
-set secure
-
-" often used commands:
+" Often used commands {{{
 " <C-W>R - swap splits
+" }}}
+
+" vim:foldmethod=marker:foldlevel=0
