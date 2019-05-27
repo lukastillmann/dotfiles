@@ -98,6 +98,11 @@ set backspace=2                     " make backspace work like other programs
 
 set omnifunc=syntaxcomplete#Complete
 
+set nofixendofline                  " to prevent 'no end of line' warnings in git diff
+
+set visualbell                      " disable beep sounds
+set t_vb=                           " If 't_vb' is cleared and 'visualbell' is set, no beep and no flash will ever occur
+
 " }}}
 
 " Colors {{{
