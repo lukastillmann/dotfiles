@@ -1,6 +1,6 @@
 " Lukas Tillmann
 
-" Vundle {{{
+" Vundle Plugins {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -43,6 +43,8 @@ Plugin 'posva/vim-vue'                    " syntax highlighting for vue files
 Plugin 'kshenoy/vim-signature'            " toggle/display/navigate marks
 Plugin 'w0rp/ale'                         " for using eslint with vim
 Plugin 'neoclide/coc.nvim'                " autocomplete plugin
+Plugin 'juneedahamed/svnj.vim'            " svn mappings
+Plugin 'embear/vim-localvimrc'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -137,6 +139,9 @@ map <C-n> :NERDTreeToggle<CR>
 " add new line after opening brackets
 " see https://stackoverflow.com/a/35711195/5888924
 inoremap <expr> <cr> getline(".")[col(".")-2:col(".")-1]=="{}" ? "<cr><esc>O" : "<cr>"
+
+" copy to windows clipboard
+map <C-c> :w !clip.exe<CR><CR>
 
 " }}}
 
@@ -243,6 +248,10 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 let g:jsx_ext_required = 0
 " faster syntax highlighting in vue files
 let g:vue_disable_pre_processors = 1
+" }}}
+
+" localvimrc config {{{
+let g:localvimrc_whitelist=['/home/lukas/*']
 " }}}
 
 " Misc {{{
