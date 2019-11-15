@@ -45,6 +45,7 @@ Plugin 'w0rp/ale'                         " for using eslint with vim
 Plugin 'neoclide/coc.nvim'                " autocomplete plugin
 Plugin 'juneedahamed/svnj.vim'            " svn mappings
 Plugin 'embear/vim-localvimrc'
+Plugin 'ap/vim-css-color'                 " color previews in css
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -222,6 +223,7 @@ let g:prettier#config#semi = 'true'
 let g:prettier#config#jsx_bracket_same_line = 'false'
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#tab_width = 3
+let g:prettier#config#html_whitespace_sensitivity = 'ignore'
 " use F9 to trigger Prettier
 nnoremap <F9> :Prettier<CR>
 " }}}
@@ -276,6 +278,11 @@ function! AddGutter()
   execute "set number"
   execute "GitGutterEnable"
 endfunction
+
+" reset syntax highlighting in vue files
+nnoremap <C-s> :syntax sync fromstart<CR>
+" set autocommand for this, may have performance issues, try out later
+autocmd FileType vue syntax sync fromstart
 
 " }}}
 
