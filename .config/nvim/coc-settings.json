@@ -1,0 +1,17 @@
+{
+   // diagnostics and floating windows
+  "suggest.enablePreview": true,
+  "suggest.floatEnable": true,
+  "suggest.echodocSupport": true,
+  "suggest.maxCompleteItemCount": 20,
+  "snippets.extends": {
+     "vue": ["javascript"]
+  },
+  "snippets.userSnippetsDirectory": "~/.vim/custom-snippets",
+  "coc.preferences.formatOnSaveFiletypes": ["json"],
+  "diagnostic.errorSign": "•",
+  "diagnostic.warningSign": "•",
+  "diagnostic.infoSign": "•",
+  "eslint.quiet": false,
+  "eslint.autoFixOnSave": true
+}
