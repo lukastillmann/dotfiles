@@ -1,4 +1,4 @@
-" Luka Tillmann
+" Lukas Tillmann
 
 " /* Base Options {{{1 */
 
@@ -33,7 +33,7 @@ let mapleader = ","
 
 set modelines=1                     " check first and last line for file specific configs
 
-set exrc                            " allow project specific .vimrc files
+set exrc                            " allow project specific .nvimrc files
 set secure                          " disable unsave commands in project vimrc
 
 set backspace=2                     " make backspace work like other programs
@@ -72,38 +72,39 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Editor
-Plug 'vim-airline/vim-airline'			         	" status/tabline
-Plug 'morhetz/gruvbox'				                  " vim theme
-Plug 'kshenoy/vim-signature'				            " toggle/display/navigate marks
-" Plug 'embear/vim-localvimrc'				         " enables .lvimrc files in project folders
-Plug 'honza/vim-snippets'                          " adds snippets
+Plug 'vim-airline/vim-airline'                        " status/tabline
+Plug 'morhetz/gruvbox'                                " vim theme
+Plug 'kshenoy/vim-signature'                          " toggle/display/navigate marks
+" Plug 'embear/vim-localvimrc'                        " enables .lvimrc files in project folders
+Plug 'honza/vim-snippets'                             " adds snippets
 
 " Coding Shortcuts
-Plug 'neoclide/coc.nvim', {'branch': 'release'}		" Intellisense (autocompletion) engine
+Plug 'neoclide/coc.nvim', {'branch': 'release'}       " Intellisense (autocompletion) engine
 " Plug 'prettier/vim-prettier'
-Plug 'preservim/nerdcommenter'				         " comment functions
+Plug 'preservim/nerdcommenter'                        " comment functions
+Plug 'jiangmiao/auto-pairs'                           " automatically add newline and indent after opening brackets
 
 " File Management
 Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'			         " show git status of files in nerdtree window
-Plug 'junegunn/fzf', { 'do': './install --bin' }	" fuzzy finding of files
-Plug 'junegunn/fzf.vim'					               " is also needed for fzf
+Plug 'Xuyuanp/nerdtree-git-plugin'                    " show git status of files in nerdtree window
+Plug 'junegunn/fzf', { 'do': './install --bin' }      " fuzzy finding of files
+Plug 'junegunn/fzf.vim'                               " is also needed for fzf
 
 " Git Extensions
-Plug 'airblade/vim-gitgutter' 				         "  
-Plug 'tpope/vim-fugitive'				               " git wrapper for vim (e.g. :Gblame etc)
+Plug 'airblade/vim-gitgutter'                         " adds left side gutter for git marks
+Plug 'tpope/vim-fugitive'                             " git wrapper for vim (e.g. :Gblame etc)
 
 " Syntax Highlighting
-Plug 'sheerun/vim-polyglot'                        " collection of language packs for more than 100 languages
-Plug 'ap/vim-css-color'					               " color previews in css
+Plug 'sheerun/vim-polyglot'                           " collection of language packs for more than 100 languages
+Plug 'ap/vim-css-color'                               " color previews in css
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 
 " Plugins to try out someting
-" tpope/vim-abolish                                " case-insensitive find/replace that also include plural forms
-" tpope/vim-sleuth                                 " automatically adjust shiftwidth and expandtab based on current file
-" tpope/vim-unimpaired                             " maps complementary pairs of mappings (next/previous) to the same keys
+" tpope/vim-abolish                                   " case-insensitive find/replace that also include plural forms
+" tpope/vim-sleuth                                    " automatically adjust shiftwidth and expandtab based on current file
+" tpope/vim-unimpaired                                " maps complementary pairs of mappings (next/previous) to the same keys
 call plug#end()
 
 " /* Colors {{{1 */
@@ -111,11 +112,11 @@ syntax enable
 let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
-" }}}
+
 " /* Mappings {{{1 */
 
 nnoremap <silent> <leader>, :noh<cr> " Stop highlight after searching
-imap <C-c> <CR><Esc>O       " mapping to split lines (e.g. between brackets)
+"imap <C-c> <CR><Esc>O       " mapping to split lines (e.g. between brackets)
 
 " double dashes to toggle comments (with vim-commentary plugin)
 " map // gcc
@@ -139,7 +140,8 @@ nnoremap vfind vert sfind
 
 " add new line after opening brackets
 " see https://stackoverflow.com/a/35711195/5888924
-inoremap <expr> <cr> getline(".")[col(".")-2:col(".")-1]=="{}" ? "<cr><esc>O" : "<cr>"
+inoremap <expr> <cr> getline('.')[col('.')-2:col('.')-1]=='{}' ? '<cr><esc>O' : '<cr>'
+" inoremap {<cr> {<cr>}<Esc>0<BS><Tab>o
 
 " copy to windows clipboard
 map <C-c> :w !clip.exe<CR><CR>
@@ -190,8 +192,8 @@ nnoremap <C-W><C-H> <C-W>v<C-W><C-H>
 " Starting from vim 7.3 undo can be persisted across sessions
 " http://www.reddit.com/r/vim/comments/kz84u/what_are_some_simple_yet_mindblowing_tweaks_to/c2onmqe
 if has("persistent_undo")
-	set undodir=~/.vim/undodir
-	set undofile
+   set undodir=~/.vim/undodir
+   set undofile
 endif
 
 " Return to last edit position when opening files (You want this!)
@@ -203,7 +205,8 @@ autocmd BufReadPost *
 set viminfo^=%
 
 " Reload changes to .vimrc automatically
-autocmd BufWritePost  ~/.vimrc source ~/.vimrc
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
 
 " deactivate safe write
 set backupcopy=yes
@@ -255,7 +258,7 @@ let g:coc_global_extensions = [
 
 " from readme
 " if hidden is not set, TextEdit might fail.
-set hidden " Some servers have issues with backup files, see #649 set nobackup set nowritebackup 
+set hidden                                         " Some servers have issues with backup files, see #649 set nobackup set nowritebackup 
 " Better display for messages 
 set cmdheight=2 
 set previewheight=50
@@ -286,7 +289,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gr <Plug>(coc-referencei)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
