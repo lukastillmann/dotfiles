@@ -1,4 +1,4 @@
-" Lukas Tillmann
+" Luka Tillmann
 
 " /* Base Options {{{1 */
 
@@ -21,6 +21,7 @@ set expandtab
 set cursorline                      " highlight the current line
 
 set wildmenu                        " graphical autocomplete menu for files
+set path+=**                        " search down into subfolders
 
 set hlsearch                        " highlight search results
 set incsearch                       " search as characters are entered
@@ -99,6 +100,10 @@ Plug 'ap/vim-css-color'					               " color previews in css
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 
+" Plugins to try out someting
+" tpope/vim-abolish                                " case-insensitive find/replace that also include plural forms
+" tpope/vim-sleuth                                 " automatically adjust shiftwidth and expandtab based on current file
+" tpope/vim-unimpaired                             " maps complementary pairs of mappings (next/previous) to the same keys
 call plug#end()
 
 " /* Colors {{{1 */
@@ -125,6 +130,8 @@ set pastetoggle=<leader>z " toggle paste mode with leader-z
 
 map <C-n> :NERDTreeToggle<CR>
 
+nnoremap vfind vert sfind
+
 " increment/decrement number with Alt-a/Alt-x
 " because Ctrl-a is used by tmux
 :nnoremap <A-a> <C-a>
@@ -143,6 +150,13 @@ nnoremap <C-s> :syntax sync fromstart<CR>
 autocmd FileType vue syntax sync fromstart
 
 
+
+" /* File Browsing netrw {{{1
+
+let g:netrw_banner=0                        " disable annoying banner
+let g:netrw_browse_split=4                  " open in prior window
+let g:netrw_altv=1                          " open split to right
+let g:netrw_liststyle=3                     " tree view
 
 " /* Pane Handling / Tmux {{{1 */
 
