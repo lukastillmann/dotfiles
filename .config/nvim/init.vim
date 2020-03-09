@@ -69,7 +69,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " Editor
 Plug 'vim-airline/vim-airline'                        " status/tabline
@@ -113,7 +113,7 @@ let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
 
-" /* Mappings {{{1 */
+" /* Mappings/Autocommands {{{1 */
 
 nnoremap <silent> <leader>, :noh<cr> " Stop highlight after searching
 "imap <C-c> <CR><Esc>O       " mapping to split lines (e.g. between brackets)
@@ -132,11 +132,12 @@ set pastetoggle=<leader>z " toggle paste mode with leader-z
 map <C-n> :NERDTreeToggle<CR>
 
 nnoremap vfind vert sfind
+cabbrev vsf vert sfind
 
 " increment/decrement number with Alt-a/Alt-x
 " because Ctrl-a is used by tmux
-:nnoremap <A-a> <C-a>
-:nnoremap <A-x> <C-x>
+nnoremap <A-a> <C-a>
+nnoremap <A-x> <C-x>
 
 " add new line after opening brackets
 " see https://stackoverflow.com/a/35711195/5888924
@@ -151,7 +152,13 @@ nnoremap <C-s> :syntax sync fromstart<CR>
 " set autocommand for this, may have performance issues, try out later
 autocmd FileType vue syntax sync fromstart
 
-
+" automatically open quickfix window, whenever lists are available
+augroup qf
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    cwindow
+    autocmd VimEnter        *     cwindow
+augroup END
 
 " /* File Browsing netrw {{{1
 
