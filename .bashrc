@@ -155,3 +155,7 @@ if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(type -t __init_nvm)" = function ]; then
 fi
 
 #export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.local/bin:$PATH"
+
+# set nvim runtime
+export VIM=/usr/share/nvim
+export VIMRUNTIME=/usr/share/nvim/runtime
