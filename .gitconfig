@@ -4,8 +4,10 @@
 [core]
 	editor = vim
 [alias]
-   comit = commit
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-   s = status
-	st = stash list --pretty=format:\"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(70,trunc)%s %C(green)(%ci, %cr) %C(bold blue)<%an>%C(reset)\"
-   pullr = pull --rebase
+    comit = commit
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    s = status
+    co = checkout
+    pullr = pull --rebase
+    # prettier stash list
+    st = stash list --pretty=format:\"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(70,trunc)%s %C(green)(%ci, %cr) %C(bold blue)<%an>%C(reset)\"
