@@ -89,6 +89,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'                    " show git status of files in nerdtree window
 Plug 'junegunn/fzf', { 'do': './install --bin' }      " fuzzy finding of files
 Plug 'junegunn/fzf.vim'                               " is also needed for fzf
+Plug 'mileszs/ack.vim'                                " ack (like grep) searching for keywords within project
 
 " Git Extensions
 Plug 'airblade/vim-gitgutter'                         " adds left side gutter for git marks
@@ -101,7 +102,15 @@ Plug 'ap/vim-css-color'                               " color previews in css
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 
-" Plugins to try out someting
+Plug 'psliwka/vim-smoothie'
+
+Plug 'mhinz/vim-startify'                             " This plugin provides a start screen for Vim and Neovim.
+
+Plug 'vimwiki/vimwiki'                                " a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
+
+Plug 'jremmen/vim-ripgrep'                            " search word under cursor using Rg (riprep)
+
+" Plugins to try out sometime
 " tpope/vim-abolish                                   " case-insensitive find/replace that also include plural forms
 " tpope/vim-sleuth                                    " automatically adjust shiftwidth and expandtab based on current file
 " tpope/vim-unimpaired                                " maps complementary pairs of mappings (next/previous) to the same keys
@@ -350,12 +359,34 @@ function! NERDCommenter_after()
   endif
 endfunction
 
+" /* Vimwiki Config {{{1/
+
+" use Markdown syntax and add markdown-to-html conversion script
+
+" https://github.com/WnP/vimwiki_markdown/
+" pip3 install vimwiki-markdown
+let g:vimwiki_list = [{
+	\ 'path': '~/vimwiki',
+	\ 'template_path': '~/vimwiki/templates/',
+	\ 'template_default': 'default',
+	\ 'syntax': 'markdown',
+	\ 'ext': '.md',
+	\ 'path_html': '~/vimwiki_html/',
+	\ 'custom_wiki2html': 'vimwiki_markdown',
+	\ 'template_ext': '.tpl',
+   \ 'auto_toc': 1 }]
+
+let g:vimwiki_toc_header = 'Inhalt'
+let g:vimwiki_toc_header_level = 2
+
 " /* Misc plugin configuration {{{1 */
 
 " vim-jsx configuration
 let g:jsx_ext_required = 0                         " faster syntax highlighting in vue files
 let g:vue_disable_pre_processors = 1
 let g:localvimrc_whitelist=['/home/lukas" /*']
+
+let g:rg_derive_root = 'true'
 
 
 " /* Misc {{{1 */
@@ -378,8 +409,9 @@ function! AddGutter()
   execute "GitGutterEnable"
 endfunction
 
-" /* Often used commands {{{1 */
+" /* Tips & Tricks {{{1 */
 " <C-W>R - swap splits
+" .\{-} - non-greedy wildcard vim
 
 
 " }}}
