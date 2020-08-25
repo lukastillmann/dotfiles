@@ -38,6 +38,10 @@ sudo apt-get install apache2
 # add "eval `keychain --eval --agents ssh id_rsa`" to .bash_profile
 sudo apt-get install keychain
 
+# install ripgrep for better searching (check for newer version)
+# https://github.com/BurntSushi/ripgrep/releases
+sudo apt-get install ripgrep
+
 ##############
 # VIM / TMUX #
 ##############

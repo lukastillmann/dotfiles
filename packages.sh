@@ -23,6 +23,9 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 echo 'installing vim-plug plugins'
 nvim -E -c PlugInstall -c q
 
+echo 'installing ripgrep'
+sudo apt-get install ripgrep
+
 #echo 'installing vim vundle and Plugins'
 #git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 #vim +PluginInstall +qall

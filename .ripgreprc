@@ -1,0 +1,12 @@
+# adapt output similar to regular grep
+--no-heading
+
+--max-columns=150
+--max-columns-preview
+
+# Using glob patterns to include/exclude files or folders
+--glob=!git/*
+
+
+# case-insensitive
+--smart-case
