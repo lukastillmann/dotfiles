@@ -108,12 +108,13 @@ Plug 'mhinz/vim-startify'                             " This plugin provides a s
 
 Plug 'vimwiki/vimwiki'                                " a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
 
-Plug 'jremmen/vim-ripgrep'                            " search word under cursor using Rg (riprep)
+Plug 'jremmen/vim-ripgrep'
+
+Plug 'tpope/vim-unimpaired'                           " maps complementary pairs of mappings (next/previous) to the same keys
 
 " Plugins to try out sometime
 " tpope/vim-abolish                                   " case-insensitive find/replace that also include plural forms
 " tpope/vim-sleuth                                    " automatically adjust shiftwidth and expandtab based on current file
-" tpope/vim-unimpaired                                " maps complementary pairs of mappings (next/previous) to the same keys
 call plug#end()
 
 " /* Colors {{{1 */
@@ -386,14 +387,29 @@ let g:jsx_ext_required = 0                         " faster syntax highlighting 
 let g:vue_disable_pre_processors = 1
 let g:localvimrc_whitelist=['/home/lukas" /*']
 
+" ripgrep
 let g:rg_derive_root = 'true'
 
+" vim-unimpaired: make prefix more user-friendly for quertz keyboard
+nmap > [
+nmap < ]
+omap > [
+omap < ]
+xmap > [
+xmap < ]
 
 " /* Misc {{{1 */
 
 " javascript syntax for helma hac files and vue
 autocmd BufNewFile,BufRead *.hac set filetype=javascript
 autocmd BufNewFile,BufRead *.skin set filetype=html
+
+" automatically open quickfix/location list split after :grep/:lvimgrep etc.
+augroup quickfix
+   autocmd!
+   autocmd QuickFixCmdPost [^l]* cwindow
+   autocmd QuickFixCmdPost l* lwindow
+augroup END
 
 " /* Custom Functions {{{1 */
 " Functions to remove all gutters (used for tmux copy function)
