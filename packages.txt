@@ -1,5 +1,8 @@
 #/bin/bash
 
+# MOSTLY DEPRECATED
+# USE packages.sh FOR A NEW INSTALLATION
+
 #####################
 # One Line Installs #
 #####################
@@ -7,7 +10,7 @@
 ## copy these line to install all relevant dependencies
 
 # linux
-sudo apt-get update && sudo apt-get upgrade && sudo apt install build-essential cmake python3-dev apache2 keychain default-jre
+sudo apt-get update && sudo apt-get upgrade && sudo apt install build-essential cmake python3 python3-dev apache2 keychain postgresql
 
 # node/npm
 curl -sL https://deb.nodesource.com/setup_10.x | sudo bash - && sudo apt install nodejs && sudo npm install -g prettier gulp-cli
@@ -27,7 +30,7 @@ echo "updating and upgrading packages"
 sudo apt-get update && sudo apt-get upgrade
 
 # install often needed dependencies
-sudo apt-get install build-essential cmake python3-dev
+sudo apt-get install build-essential cmake python3 python3-dev 
 
 # install apache
 echo "installing apache server"
@@ -46,13 +49,20 @@ sudo apt-get install ripgrep
 # VIM / TMUX #
 ##############
 
-# install vundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# install vim-plug
+# vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# neovim
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+
+# deprecated: use coc instead
 # YouCompleteMe Vim Plugin
 # - compile (after installing with vundle)
-cd ~/.vim/bundle/YouCompleteMe
-python3 install.py
+#cd ~/.vim/bundle/YouCompleteMe
+#python3 install.py
 
 # install tmux
 sudo apt-get install tmux
@@ -67,10 +77,14 @@ echo "Press prefix + I (capital i, as in Install) to fetch the plugins."
 # NODE / NPM #
 ##############
 
-# install nodejs
-echo "installing nodejs 10.x"
-curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
-sudo apt install nodejs
+# install nvm and node
+echo "installing nvm and node "
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+# export nvm_dir to immediately use nvm
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}"  ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh"  ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+nvm install node
 
 # install prettier, gulp
 sudo npm install -g prettier gulp-cli
@@ -97,8 +111,8 @@ sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk-1
 ###########
 
 # download and install RINGOJS
-wget -P ~/tmp/ https://ringojs.org/releases/1.2.1/ringojs_1.2.1_all.deb
-sudo apt install ~/tmp/ringojs_1.2.1_all.deb
+# wget -P ~/tmp/ https://ringojs.org/releases/1.2.1/ringojs_1.2.1_all.deb
+# sudo apt install ~/tmp/ringojs_1.2.1_all.deb
 
 # install rp package manager
 sudo mkdir /usr/share/ringojs/bin
