@@ -42,7 +42,8 @@ set backspace=2                     " make backspace work like other programs
 
 set omnifunc=syntaxcomplete#Complete
 
-set clipboard=unnamedplus           " use windows clipboard from wsl, does not seem to work though 
+" set clipboard=unnamedplus           " use windows clipboard from wsl, does not seem to work though 
+set clipboard=           " use windows clipboard from wsl, does not seem to work though 
 let g:loaded_clipboard_provider = 1 " fixes clipboard errors in neovim
 
 " enable yanking to windows clipboard
@@ -57,6 +58,7 @@ set nofixendofline                  " to prevent 'no end of line' warnings in gi
 
 set visualbell                      " disable beep sounds
 set t_vb=                           " If 't_vb' is cleared and 'visualbell' is set, no beep and no flash will ever occur
+
 
 
 
@@ -80,6 +82,13 @@ Plug 'honza/vim-snippets'                             " adds snippets
 
 " Coding Shortcuts
 Plug 'neoclide/coc.nvim', {'branch': 'release'}       " Intellisense (autocompletion) engine
+Plug 'leafoftree/vim-vue-plugin'                    " syntax and indentation plugin for vue files
+Plug 'heavenshell/vim-jsdoc', {
+  \ 'for': ['javascript', 'javascript.jsx','typescript'],
+  \ 'do': 'make install'
+\}																		" generates JSDoc block comments based on a function signature.
+
+
 " Plug 'prettier/vim-prettier'
 Plug 'preservim/nerdcommenter'                        " comment functions
 Plug 'jiangmiao/auto-pairs'                           " automatically add newline and indent after opening brackets
@@ -111,6 +120,8 @@ Plug 'vimwiki/vimwiki'                                " a personal wiki for Vim 
 Plug 'jremmen/vim-ripgrep'
 
 Plug 'tpope/vim-unimpaired'                           " maps complementary pairs of mappings (next/previous) to the same keys
+
+Plug 'tpope/vim-surround'
 
 " Plugins to try out sometime
 " tpope/vim-abolish                                   " case-insensitive find/replace that also include plural forms
@@ -144,6 +155,13 @@ map <C-n> :NERDTreeToggle<CR>
 nnoremap vfind vert sfind
 cabbrev vsf vert sfind
 
+nnoremap f find
+cabbrev f find
+
+nnoremap sf sfind
+cabbrev sf sfind
+
+
 " increment/decrement number with Alt-a/Alt-x
 " because Ctrl-a is used by tmux
 nnoremap <A-a> <C-a>
@@ -161,6 +179,9 @@ map <C-c> :w !clip.exe<CR><CR>
 nnoremap <C-s> :syntax sync fromstart<CR>
 " set autocommand for this, may have performance issues, try out later
 autocmd FileType vue syntax sync fromstart
+
+" enable correct auto-intending for comments in vue files 
+autocmd FileType vue set fo=croq
 
 " automatically open quickfix window, whenever lists are available
 augroup qf
@@ -203,6 +224,12 @@ nnoremap <C-W><C-J> <C-W>s<C-W><C-J>
 nnoremap <C-W><C-K> <C-W>s<C-W><C-K>
 nnoremap <C-W><C-L> <C-W>v<C-W><C-L>
 nnoremap <C-W><C-H> <C-W>v<C-W><C-H>
+
+" split vim panes right/down/left/up
+nnoremap <leader>l :vsplit<cr><C-W><C-L>
+nnoremap <leader>j :split<cr><C-W><C-J>
+nnoremap <leader>h :vsplit<cr>
+nnoremap <leader>k :split<cr>
 
 " /* Buffer/Saving {{{1 */
 
@@ -319,6 +346,11 @@ function! s:show_documentation()
   endif
 endfunction
 
+" disable auto-pairs shortcut toggle, because it caused an error
+let g:AutoPairsShortcutToggle = ''
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<tab>'
 
 " /* Prettier {{{1 */
 "let g:prettier#config#bracket_spacing = 'true'
@@ -391,12 +423,16 @@ let g:localvimrc_whitelist=['/home/lukas" /*']
 let g:rg_derive_root = 'true'
 
 " vim-unimpaired: make prefix more user-friendly for quertz keyboard
-nmap > [
-nmap < ]
-omap > [
-omap < ]
-xmap > [
-xmap < ]
+" FIXME < and > are needed for indentation! 
+" nmap > [
+" nmap < ]
+" omap > [
+" omap < ]
+" xmap > [
+" xmap < ]
+
+" vim-jsdoc
+let g:jsdoc_templates_path = '/home/lukas/.config/vim-jsdoc/templates.js'
 
 " /* Misc {{{1 */
 
