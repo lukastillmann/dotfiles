@@ -120,6 +120,10 @@ alias l='ls -CF'
 
 alias tmx='tmux attach || { (while ! tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh; do sleep 0.2; done)& tmux ; }'
 
+# print out the semantic commit-types
+alias commit-types='cat ~/dotfiles/commit-types'
+alias ct='cat ~/dotfiles/commit-types'
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
