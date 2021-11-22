@@ -4,7 +4,7 @@ echo 'updating, upgrading...'
 sudo apt-get update && sudo apt-get upgrade
 
 echo 'installing essential tools'
-sudo apt install -y build-essential cmake git-all python3 python3-dev python3-pip apache2 postgresql
+sudo apt install -y build-essential cmake git-all python python-dev python3 python3-dev python3-pip apache2 postgresql
 
 echo 'installing useful tools'
 sudo apt install -y unzip keychain
@@ -38,7 +38,7 @@ echo 'installing vim-plug plugins'
 nvim -E -c PlugInstall -c q
 
 echo 'installing coc extensions'
-nvim -E -c "CocInstall coc-rome coc-sh coc-yaml coc-svg coc-html coc-css" -c q
+nvim -E -c "CocInstall coc-rome coc-sh coc-yaml coc-svg coc-html coc-css coc-prettier" -c q
 
 # see https://github.com/neoclide/coc-snippets/issues/196#issuecomment-781231190
 echo 'fixing python issues with coc and nvim'
