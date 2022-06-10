@@ -16,3 +16,4 @@
 
 service apache2 start
 service postgresql start
+service elasticsearch start
