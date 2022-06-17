@@ -48,11 +48,6 @@ python3 -m pip install --user --upgrade pynvim
 echo 'installing ripgrep'
 sudo apt-get install -y ripgrep
 
-# install ctags - needed for some vim plugins
-echo 'installing universal ctags'
-cd ~/ && git clone https://github.com/universal-ctags/ctags
-cd ctags && ./autogen.sh && ./configure && make && sudo make install && cd ~/
-
 # watchman, makes coc-volar faster (TODO update url occasionally)
 echo 'installing watchman'
 cd -p /tmp/ && wget https://github.com/facebook/watchman/releases/download/v2022.06.13.00/watchman-v2022.06.13.00-linux.zip
@@ -62,7 +57,6 @@ sudo cp bin/* /usr/local/bin
 sudo cp lib/* /usr/local/lib
 sudo chmod 755 /usr/local/bin/watchman
 sudo chmod 2777 /usr/local/var/run/watchman
-
 
 echo 'git configs'
 sudo git config --global user.email "home@lukastillmann.eu"

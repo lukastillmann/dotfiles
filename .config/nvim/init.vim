@@ -79,20 +79,14 @@ Plug 'morhetz/gruvbox'                                " vim theme
 Plug 'kshenoy/vim-signature'                          " toggle/display/navigate marks
 " Plug 'embear/vim-localvimrc'                        " enables .lvimrc files in project folders
 Plug 'honza/vim-snippets'                             " adds snippets
-Plug 'airblade/vim-rooter'                            " changes the working directory to the project root when you open a file or directory.
 
-" Coding Help
+" Coding Shortcuts
 Plug 'neoclide/coc.nvim', {'branch': 'release'}       " Intellisense (autocompletion) engine
-Plug 'dense-analysis/ale'                             " Asynchronous lint checking
-Plug 'leafoftree/vim-vue-plugin'                      " syntax and indentation plugin for vue files
+Plug 'leafoftree/vim-vue-plugin'                    " syntax and indentation plugin for vue files
 Plug 'heavenshell/vim-jsdoc', {
   \ 'for': ['javascript', 'javascript.jsx','typescript'],
   \ 'do': 'make install'
 \}																		" generates JSDoc block comments based on a function signature.
-" Plug 'ludovicchabant/vim-gutentags'                   " improved ctag management
-Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'} " this plugin allows importing javascript and typescript files using ctags
-Plug 'jlanzarotta/bufexplorer'
-Plug 'yaegassy/coc-volar', {'do': 'yarn install --frozen-lockfile'}   " fast vue language support
 
 " Plug 'prettier/vim-prettier'
 Plug 'preservim/nerdcommenter'                        " comment functions
@@ -104,8 +98,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'                    " show git status of files
 Plug 'junegunn/fzf', { 'do': './install --bin' }      " fuzzy finding of files
 Plug 'junegunn/fzf.vim'                               " is also needed for fzf
 Plug 'mileszs/ack.vim'                                " ack (like grep) searching for keywords within project
-" Plug 'tomarrell/vim-npr'                              " sensible Node Path Relative module resolution using gf
-Plug 'DataWraith/auto_mkdir'                          " save files into directories that do not exist yet
 
 " Git Extensions
 Plug 'airblade/vim-gitgutter'                         " adds left side gutter for git marks
@@ -301,8 +293,9 @@ let g:coc_global_extensions = [
   \ 'coc-pairs',
   \ 'coc-tsserver',
   \ 'coc-json', 
+  \ 'coc-vetur',
   \ 'coc-html',
-  "\ 'coc-prettier',
+  \ 'coc-prettier',
   \ 'coc-eslint'
   \ ]
 
@@ -358,29 +351,18 @@ let g:AutoPairsShortcutToggle = ''
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<tab>'
 
-" /* ALE/Prettier {{{1 */
-
-let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'css': ['prettier'],
-\   'vue': ['prettier'],
-\}
-let g:ale_fix_on_save = 1
-" Set this to let coc handle lsp
-let g:ale_disable_lsp = 1
-" Show information in the status bar: Set this. Airline will handle the rest.
-let g:airline#extensions#ale#enabled = 1
-
-let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
-" Select the eslint and vls linters.
-let g:ale_linters = {'vue': ['eslint', 'vls']}
-
+" /* Prettier {{{1 */
+"let g:prettier#config#bracket_spacing = 'true'
+"let g:prettier#config#semi = 'true'
+"let g:prettier#config#jsx_bracket_same_line = 'false'
+"let g:prettier#config#single_quote = 'true'
+"let g:prettier#config#tab_width = 3
+"let g:prettier#config#html_whitespace_sensitivity = 'ignore'
 " use F9 to trigger Prettier
 
 " coc-prettier config
-"command! -nargs=0 Prettier :CocCommand prettier.formatFile
-"nnoremap <F9> :Prettier<CR>
-nnoremap <F9> :ALEFix<CR>
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+nnoremap <F9> :Prettier<CR>
 
 " map <leader>-f to format a range
 vmap <leader>f  <Plug>(coc-format-selected)
@@ -450,17 +432,6 @@ let g:rg_derive_root = 'true'
 
 " vim-jsdoc
 let g:jsdoc_templates_path = '/home/lukas/.config/vim-jsdoc/templates.js'
-
-" vim-npr
-" let g:vim_npr_file_names = ["", ".js", "/index.js", ".vue"]
-" let g:vim_npr_file_types = ['js', 'jsx', 'css', 'scss', 'vue']
-
-" vim-rooter
-let g:rooter_patterns = ['=src']
-
-" fzf 
-" let g:fzf_preview_window = ['down:30%:hidden', 'ctrl-7']
-let g:fzf_layout = { 'window': { 'width': 0.4, 'height': 0.3, 'relative': v:true, 'yoffset': 1.0  }  }
 
 " /* Misc {{{1 */
 
