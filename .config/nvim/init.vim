@@ -92,6 +92,7 @@ Plug 'heavenshell/vim-jsdoc', {
 " Plug 'ludovicchabant/vim-gutentags'                   " improved ctag management
 Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'} " this plugin allows importing javascript and typescript files using ctags
 Plug 'jlanzarotta/bufexplorer'
+Plug 'yaegassy/coc-volar', {'do': 'yarn install --frozen-lockfile'}   " fast vue language support
 
 " Plug 'prettier/vim-prettier'
 Plug 'preservim/nerdcommenter'                        " comment functions
