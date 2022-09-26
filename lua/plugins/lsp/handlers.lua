@@ -88,6 +88,7 @@ M.on_attach = function(client, bufnr)
 
   if client.name == "tsserver" then
     require("lsp-inlayhints").on_attach(client, bufnr)
+    -- enable format_on_save for all javascript files
     M.enable_format_on_save()
   end
 end
@@ -96,7 +97,7 @@ function M.enable_format_on_save()
   vim.cmd [[
     augroup format_on_save
       autocmd!
-      autocmd BufWritePre * lua vim.lsp.buf.format({ async = false })
+      autocmd BufWritePre * lua require("plugins.lsp.handlers").format()
     augroup end
   ]]
   vim.notify "Enabled format on save"
@@ -131,8 +132,10 @@ function M.format(payload)
   })
 end
 
+-- register LspToggleAutoFormat to toggle format_on_save
 vim.cmd [[ command! LspToggleAutoFormat execute 'lua require("plugins.lsp.handlers").toggle_format_on_save()' ]]
 
+-- register LspFormat command to format
 vim.cmd [[ command! LspFormat execute 'lua require("plugins.lsp.handlers").format()' ]]
 
 return M

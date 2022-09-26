@@ -42,6 +42,7 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+
   -- Editor
   use 'feline-nvim/feline.nvim'           -- statusbar
   use 'morhetz/gruvbox'                   -- vim colortheme
@@ -116,6 +117,14 @@ return require('packer').startup(function(use)
     requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+  -- fuzzy finder for Telescope
+  use {'nvim-telescope/telescope-fzf-native.nvim',
+    run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+  }
+
+  -- File browser
+  use { "nvim-telescope/telescope-file-browser.nvim" }
+
   -- Telescope ui for code actions
   use {'nvim-telescope/telescope-ui-select.nvim' }
 
@@ -135,15 +144,26 @@ return require('packer').startup(function(use)
   use "lewis6991/gitsigns.nvim"
 
   -- Tmux
-  use 'christoomey/vim-tmux-navigator'
+  -- use 'christoomey/vim-tmux-navigator'
+
+  -- Project
+  use 'ahmedkhalf/project.nvim'
+
+  -- Note Taking
+  use {
+    'phaazon/mind.nvim',
+    branch = 'v2.2',
+    requires = { 'nvim-lua/plenary.nvim' }
+  }
 
   --use { 'tomarrell/vim-npr' }             -- sensible name path resolution for node projects (resolve modules using gf)
 
   -- vim-rooter. A high performance plugin to change your working directory to the project root when you open a file
-	use {
+  -- not needed anymore because of project.nvim
+--[[ 	use {
 		 'notjedi/nvim-rooter.lua',
 		 config = function() require'nvim-rooter'.setup({ rooter_patterns = { '=src' }} ) end
-	}
+	} ]]
 
    -- Secure load local config files.
    use {
@@ -160,6 +180,13 @@ return require('packer').startup(function(use)
        }
      end
    }
+
+  -- Start Screen
+--[[   use {
+    "startup-nvim/startup.nvim",
+    requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
+  } ]]
+  use 'echasnovski/mini.nvim'
 
    -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

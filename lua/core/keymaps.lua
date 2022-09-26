@@ -56,6 +56,9 @@ map('i', '<leader>s', '<C-c>:w<CR>')
 -- Close all windows and exit from Neovim with <leader> and q
 map('n', '<leader>q', ':qa!<CR>')
 
+-- Close all windows and open startup screen
+map('n', '<c-n>', '<cmd>bd|lua require("mini.starter").open()<CR>')
+
 -- reset syntax highlighting in vue files
 map("n", "<C-s>", ":syntax sync fromstart<CR>")
 
@@ -123,18 +126,22 @@ end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 -----------------------------------------------------------
+-- Projects
+-----------------------------------------------------------
+
+map("n", "<c-p>", ":Telescope projects<cr>")
+
+-----------------------------------------------------------
+-- Lazygit
+-----------------------------------------------------------
+
+map("n", "<leader>g", "<cmd>lua require('../plugins/toggleterm')._lazygit_toggle()<CR>")
+
+-----------------------------------------------------------
 -- LSP Keymaps
 -- These must be called in the on_attach function, therefore we export them here
 -- they are imported and used in plugins.lsp.mason.lua
 -----------------------------------------------------------
-
-local format = function(payload)
-  vim.lsp.buf.format({
-    filter = function(client)
-      return client.name ~= "volar"
-    end,
-  })
-end
 
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
@@ -150,13 +157,10 @@ local function lsp_keymaps(bufnr)
   -- keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
   keymap(bufnr, "n", "gl", "<cmd>Telescope diagnostics<CR>", opts)
 
-  -- vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format({ async = true })' ]]
-
   -- keymap(bufnr, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
   keymap(bufnr, "n", "<M-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
   keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
   keymap(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  -- keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
   keymap(bufnr, "n", "<leader>f", "<cmd>LspFormat<CR>", opts)
   -- keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 
