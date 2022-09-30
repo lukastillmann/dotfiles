@@ -55,6 +55,7 @@ end
 local servers = {
     'tsserver',
     'volar',
+    'pyright'
 }
 
 -- Call setup

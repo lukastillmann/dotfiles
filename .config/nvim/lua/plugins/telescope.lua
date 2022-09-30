@@ -38,6 +38,8 @@ map("n", "gb", ":Telescope git_branches<CR>")
 map("n", "gs", ":Telescope git_status<CR>")
 map("n", "gf", ":Telescope git_files<CR>")
 
+map("n", "<leader>n", ":Telescope file_browser<CR>")
+
 -- lsp features
 
 --map('n', 'ga', "<cmd>lua require('telescope.builtin').diagnostics()<CR>")
@@ -46,60 +48,84 @@ map('n', 'gi', "<cmd>lua require('telescope.builtin').lsp_implementations()<CR>"
 map('n', 'gr', "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 map('n', '<leader>d', "<cmd>lua require('telescope.builtin').diagnostics()<CR>")
 
+map('n', '<leader>v', "<cmd>lua require('telescope.actions').select_vertical()<CR>")
+map('i', '<leader>v', "<cmd>lua require('telescope.actions').select_vertical()<CR>")
+
+
 -----------------------------------------------------------
 -- Telescope Mappings
 -----------------------------------------------------------
 
 telescope.setup {
-
-  extensions = {
-    defaults = {
-        mappings = {
-            i = {
-              ["<esc>"] = actions.close,
-            },
-        },
-        pickers = {
-            live_grep = {
-              theme = "dropdown",
-            },
-            grep_string = {
-              theme = "dropdown",
-            },
-            find_files = {
-              theme = "dropdown",
-              previewer = false,
-            },
-            buffers = {
-              theme = "dropdown",
-              previewer = false,
-              initial_mode = "normal",
-            },
-            planets = {
-              show_pluto = true,
-              show_moon = true,
-            },
-            colorscheme = {
-              -- enable_preview = true,
-            },
-            lsp_references = {
-              theme = "dropdown",
-              initial_mode = "normal",
-            },
-            lsp_definitions = {
-              theme = "dropdown",
-              initial_mode = "normal",
-            },
-            lsp_declarations = {
-              theme = "dropdown",
-              initial_mode = "normal",
-            },
-            lsp_implementations = {
-              theme = "dropdown",
-              initial_mode = "normal",
-            },
-        }
+  defaults = {
+    -- prompt_prefix = icons.ui.Telescope .. " ",
+    selection_caret = " ",
+    path_display = { "smart" },
+    file_ignore_patterns = {
+      ".git/",
+      "%.lock",
+      "__pycache__/",
+      "node_modules/*",
+      "%.otf",
+      "%.ttf",
+      ".github/",
+      ".gradle/",
+      ".settings/",
+      ".vscode/",
+      "build/",
+      "env/",
+      "gradle/",
+      "node_modules/",
     },
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close,
+        ["<C-j>"] = actions.select_horizontal,
+        ["<C-k>"] = actions.select_vertical,
+      }
+    },
+  },
+  pickers = {
+      live_grep = {
+        -- theme = "dropdown",
+      },
+      grep_string = {
+        theme = "dropdown",
+      },
+      find_files = {
+        theme = "dropdown",
+        previewer = false,
+      },
+      buffers = {
+        theme = "dropdown",
+        previewer = false,
+        initial_mode = "normal",
+      },
+      planets = {
+        show_pluto = true,
+        show_moon = true,
+      },
+      colorscheme = {
+        -- enable_preview = true,
+      },
+      lsp_references = {
+        theme = "dropdown",
+        initial_mode = "normal",
+      },
+      lsp_definitions = {
+        theme = "dropdown",
+        initial_mode = "normal",
+      },
+      lsp_declarations = {
+        theme = "dropdown",
+        initial_mode = "normal",
+      },
+      lsp_implementations = {
+        theme = "dropdown",
+        initial_mode = "normal",
+      },
+  },
+  extensions = {
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {
         -- even more opts

@@ -8,6 +8,5 @@ return {
         eslint_d = {
             serverPath = '/home/lukas/.nvm/versions/node/v14.17.3/lib/node_modules/eslint_d/lib/linter.js'
         }
-
     }
 }

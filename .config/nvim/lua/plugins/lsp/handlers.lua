@@ -89,7 +89,7 @@ M.on_attach = function(client, bufnr)
   if client.name == "tsserver" then
     require("lsp-inlayhints").on_attach(client, bufnr)
     -- enable format_on_save for all javascript files
-    M.enable_format_on_save()
+    --M.enable_format_on_save()
   end
 end
 
