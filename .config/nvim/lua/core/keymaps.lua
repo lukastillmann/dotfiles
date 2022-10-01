@@ -1,15 +1,12 @@
 -----------------------------------------------------------
 -- Define keymaps of Neovim and installed plugins.
 -----------------------------------------------------------
-
 local M = {}
 
 local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true, silent = true }
-  if opts then
-    options = vim.tbl_extend('force', options, opts)
-  end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    local options = {noremap = true, silent = true}
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 -- Change leader to a comma
@@ -38,7 +35,7 @@ map('n', '<F2>', ':set invpaste paste?<CR>')
 vim.opt.pastetoggle = '<F2>'
 
 -- comments
---map("", "//", "gcc") -- doesn't work any more for some reason.. use gcc instead
+-- map("", "//", "gcc") -- doesn't work any more for some reason.. use gcc instead
 
 -- increment/decrement number with Alt-a/Alt-x
 -- because Ctrl-a is used by tmux
@@ -47,7 +44,7 @@ map("n", "<A-x>", "<C-x>")
 
 -- Reload configuration without restart nvim
 -- conflict with <leader>rn to rename
---map('n', '<leader>r', ':so %<CR>')
+-- map('n', '<leader>r', ':so %<CR>')
 
 -- Fast saving with <leader> and s
 map('n', '<leader>s', ':w<CR>')
@@ -86,10 +83,10 @@ map("n", "<C-W><C-L>", "<C-W>v<C-W><C-L>")
 map("n", "<C-W><C-H>", "<C-W>v<C-W><C-H>")
 
 -- split vim panes
-map("n", "<leader>l", ":vsplit<cr><C-W><C-L>")
-map("n", "<leader>j", ":split<cr><C-W><C-J>")
-map("n", "<leader>h", ":vsplit<cr>")
-map("n", "<leader>k", ":split<cr>")
+map("n", "<leader>l", ":vnew<cr><C-W><C-L>")
+map("n", "<leader>j", ":new<cr><C-W><C-J>")
+map("n", "<leader>h", ":vnew<cr>")
+map("n", "<leader>k", ":new<cr>")
 
 -- Keymaps for find with splits
 map("n", "vfind", "vert sfind")
@@ -114,13 +111,13 @@ map("n", "<m-\\>", ":tabonly<cr>")
 -- map("n", "<c-t>", ":ToggleTerm<cr>") -- toggleterm.nvim plugin
 
 function _G.set_terminal_keymaps()
-  local opts = {buffer = 0}
-  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
-  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
-  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+    local opts = {buffer = 0}
+    vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+    vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+    vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+    vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+    vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+    vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
 end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
@@ -135,7 +132,8 @@ map("n", "<c-p>", ":Telescope projects<cr>")
 -- Lazygit
 -----------------------------------------------------------
 
-map("n", "<leader>g", "<cmd>lua require('../plugins/toggleterm')._lazygit_toggle()<CR>")
+map("n", "<leader>g",
+    "<cmd>lua require('../plugins/toggleterm')._lazygit_toggle()<CR>")
 
 -----------------------------------------------------------
 -- LSP Keymaps
@@ -144,29 +142,31 @@ map("n", "<leader>g", "<cmd>lua require('../plugins/toggleterm')._lazygit_toggle
 -----------------------------------------------------------
 
 local function lsp_keymaps(bufnr)
-  local opts = { noremap = true, silent = true }
-  local keymap = vim.api.nvim_buf_set_keymap
+    local opts = {noremap = true, silent = true}
+    local keymap = vim.api.nvim_buf_set_keymap
 
-  keymap(bufnr, "n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+    keymap(bufnr, "n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 
-  keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+    keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 
-  keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  keymap(bufnr, "n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts)
-  keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
-  -- keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  keymap(bufnr, "n", "gl", "<cmd>Telescope diagnostics<CR>", opts)
+    keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    keymap(bufnr, "n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts)
+    keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+    -- keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+    keymap(bufnr, "n", "gl", "<cmd>Telescope diagnostics<CR>", opts)
 
-  -- keymap(bufnr, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  keymap(bufnr, "n", "<M-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  keymap(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  keymap(bufnr, "n", "<leader>f", "<cmd>LspFormat<CR>", opts)
-  -- keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+    -- keymap(bufnr, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    keymap(bufnr, "n", "<M-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>",
+           opts)
+    keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+    keymap(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>",
+           opts)
+    keymap(bufnr, "n", "<leader>f", "<cmd>LspFormat<CR>", opts)
+    -- keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 
-  -- keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-  -- keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
-  -- keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+    -- keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
+    -- keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
+    -- keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 end
 
 M.lsp_keymaps = lsp_keymaps

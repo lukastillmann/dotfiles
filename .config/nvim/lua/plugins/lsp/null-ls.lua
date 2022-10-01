@@ -21,13 +21,10 @@ nls.setup({
         -- FORMATTING --
         -----------------
 
-        -- formatting.prettierd,
-        -- formatting.prettier_d_slim,
-        formatting.eslint_d.with({extra_args = {"--print-config"}}),
+        formatting.prettierd, -- formatting.prettier_d_slim,
+        -- formatting.eslint_d.with({extra_args = {"--print-config"}}),
         -- formatting.stylua,
-        formatting.lua_format,
-        formatting.jq,
-        formatting.json_tool
+        formatting.lua_format, formatting.jq, formatting.json_tool
         -- formatting.yamlfmt,              -- yaml
 
         -----------------
