@@ -3,8 +3,19 @@
 -----------------------------------------------------------
 
 -- LSP settings.
+--
+-- do not let volar do the formatting, it does not respect
+-- .prettierrc settings
+function Format()
+  vim.lsp.buf.format({
+    filter = function(client)
+      return client.name ~= "volar"
+    end,
+  })
+end
+
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -31,7 +42,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  --nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -49,6 +60,11 @@ local on_attach = function(_, bufnr)
       vim.lsp.buf.formatting()
     end
   end, { desc = 'Format current buffer with LSP' })
+
+  if (client.name ~= "volar")
+  then
+    nmap('<leader>f', ':Format<cr>', '[F]ormat buffer using LSP')
+  end
 end
 
 
@@ -57,7 +73,7 @@ end
 require('mason').setup()
 
 -- Enable the following language servers
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'gopls', 'volar', 'bashls' }
+local servers = { 'pyright', 'sumneko_lua', 'volar', 'bashls', 'eslint' }
 
 -- Ensure the servers above are installed
 require('mason-lspconfig').setup {
@@ -68,7 +84,7 @@ require('mason-lspconfig').setup {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-for _, lsp in ipairs(servers) do
+for client, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -83,11 +99,28 @@ require('fidget').setup()
 -----------------------------------------------------------
 
 -- Enable "Take Over Mode" for volar
-require('lspconfig').volar.setup{
-  filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json', 'html', 'css'}
+require('lspconfig').volar.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' }
 }
 
-require'lspconfig'.bashls.setup{}
+-- Eslint
+require('lspconfig').eslint.setup {
+  on_attach = function(_, bufnr)
+    -- lint on save
+    -- use EslintFixAll. Native lsp formatting (above) does not respect prettier rules
+    local group = vim.api.nvim_create_augroup("Eslint", {})
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = group,
+      pattern = "*.tsx,*.ts,*.jsx,*.js,*.vue",
+      command = "EslintFixAll",
+      desc = "Run eslint when saving buffer.",
+    })
+
+    vim.keymap.set('n', '<leader>f', ':EslintFixAll<cr>', { buffer = bufnr, desc = '[F]ormat buffer using eslint' })
+  end
+}
 
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ';')
@@ -114,5 +147,3 @@ require('lspconfig').sumneko_lua.setup {
     },
   },
 }
-
-

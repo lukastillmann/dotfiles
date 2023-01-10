@@ -5,9 +5,9 @@
 local fn = vim.fn
 
 local ensure_packer = function()
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -22,7 +22,7 @@ if not status_ok then
   return
 end
 
-require("packer").startup(function(use)
+packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -----------------------------------------------------------
@@ -40,6 +40,12 @@ require("packer").startup(function(use)
       'j-hui/fidget.nvim',
     },
   }
+
+  -- Null-ls provides access to language servers not natively supported by neovim
+  --use 'jose-elias-alvarez/null-ls.nvim'
+
+  -- when native lsp fails to format js files correctly, this can be used as a backup
+  use 'MunifTanjim/prettier.nvim'
 
   -----------------------------------------------------------
   -- Autocomplection
@@ -67,6 +73,17 @@ require("packer").startup(function(use)
   }
 
   -----------------------------------------------------------
+  -- File Browser
+  -----------------------------------------------------------
+
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons',
+    }
+  }
+
+  -----------------------------------------------------------
   -- Git related Plugins
   -----------------------------------------------------------
 
@@ -88,9 +105,19 @@ require("packer").startup(function(use)
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  use 'folke/which-key.nvim' -- display a popup with possible key bindings
+
+  use "andymass/vim-matchup" -- use % to navigate to matching text
+  use "karb94/neoscroll.nvim" -- smooth scrolling
+  use 'pablopunk/persistent-undo.vim' -- allows undoing changes even after editor is closed and re-opened
+  use 'farmergreg/vim-lastplace' -- reopen files at last edit position
+  use "junegunn/vim-slash" -- better behavior when searching with /
+  use "jghauser/mkdir.nvim" -- automatically create missing directories
+  use "windwp/nvim-autopairs" -- autoclose brackets and other characters
+
 
   -----------------------------------------------------------
-  -- Fizzy Finder / Telescope
+  -- Fuzzy Finder / Telescope
   -----------------------------------------------------------
 
   -- Fuzzy Finder (files, lsp, etc)
@@ -99,6 +126,29 @@ require("packer").startup(function(use)
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
+  -----------------------------------------------------------
+  -- Misc
+  -----------------------------------------------------------
+
+  use 'numToStr/Navigator.nvim'
+  -- enables seamless copy pasting between vim and wsl
+  use 'christoomey/vim-system-copy'
+  use {
+    'AckslD/messages.nvim',
+    config = 'require("messages").setup()',
+  }
+
+  -- Markdown Previwer
+  use {"ellisonleao/glow.nvim"}
+
+  use({
+  "jackMort/ChatGPT.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+})
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -109,7 +159,7 @@ end)
 
 -- Have packer use a popup window
 --require('packer').init {
-  -- snapshot = "july-24",
+-- snapshot = "july-24",
 --  snapshot_path = fn.stdpath "config" .. "/snapshots",
 --  max_jobs = 50,
 --  display = {
@@ -119,5 +169,3 @@ end)
 --    prompt_border = "rounded", -- Border style of prompt popups.
 --  },
 --}
-
-

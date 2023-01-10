@@ -1,8 +1,6 @@
 -----------------------------------------------------------
 -- Define keymaps of Neovim
 -----------------------------------------------------------
-local M = {}
-
 -- Helper function to automatically set keymap options
 local function map(mode, lhs, rhs, opts)
     local options = {noremap = true, silent = true}
@@ -55,4 +53,3 @@ map("n", "<leader>l", ":vsplit<cr><C-W><C-L>")
 map("n", "<leader>j", ":new<cr><C-W><C-J>")
 map("n", "<leader>h", ":vsplit<cr>")
 map("n", "<leader>k", ":new<cr>")
-

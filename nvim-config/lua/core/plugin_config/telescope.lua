@@ -16,6 +16,8 @@ require('telescope').setup {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
+        ['<C-h>'] = "select_vertical",
+        ['<C-j>'] = "select_horizontal",
       },
     },
   },
@@ -41,7 +43,7 @@ map('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
-map('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
+map('n', 'ff', builtin.find_files, { desc = '[F]ind [F]iles' })
 map('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 map('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
 map('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
