@@ -47,6 +47,9 @@ packer.startup(function(use)
   -- when native lsp fails to format js files correctly, this can be used as a backup
   use 'MunifTanjim/prettier.nvim'
 
+  -- Show function signature when you type
+  use "ray-x/lsp_signature.nvim"
+
   -----------------------------------------------------------
   -- Autocomplection
   -----------------------------------------------------------
@@ -55,6 +58,15 @@ packer.startup(function(use)
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
+
+  -----------------------------------------------------------
+  -- Snippets
+  -----------------------------------------------------------
+
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/vim-vsnip'
+  use 'hrsh7th/vim-vsnip-integ'
+  use "rafamadriz/friendly-snippets" -- Snippets collection
 
   -----------------------------------------------------------
   -- Treesitter - Highlight, edit, and navigate code
@@ -82,6 +94,8 @@ packer.startup(function(use)
       'nvim-tree/nvim-web-devicons',
     }
   }
+
+  use "beauwilliams/focus.nvim"
 
   -----------------------------------------------------------
   -- Git related Plugins
@@ -148,7 +162,9 @@ packer.startup(function(use)
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim"
     }
-})
+  })
+
+  use 'eandrju/cellular-automaton.nvim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

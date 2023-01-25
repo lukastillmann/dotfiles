@@ -15,7 +15,10 @@ require("core.plugin_config.neoscroll")
 --require("core.plugin_config.null-ls")
 require("core.plugin_config.prettier")
 require("core.plugin_config.chatgpt")
+require("core.plugin_config.focus")
 
 -- colorscheme
 --require("core.plugin_config.gruvbox")
 require("core.plugin_config.onedark")
+require("core.plugin_config.cellular-automaton")
+require("core.plugin_config.lsp_signature")
