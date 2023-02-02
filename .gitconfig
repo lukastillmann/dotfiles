@@ -1,17 +1,18 @@
 [user]
-	email = home@lukastillmann.eu
+	email = lukas.tillmann@orf.at
 	name = Lukas Tillmann
 [core]
 	editor = vim
 [alias]
-    comit = commit
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-    s = status
-    co = checkout
-    pullr = pull --rebase
-    # prettier stash list
-    st = stash list --pretty=format:\"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(70,trunc)%s %C(green)(%ci, %cr) %C(bold blue)<%an>%C(reset)\"
-    # https://stackoverflow.com/a/18317425/5888924
-    ignore = update-index --assume-unchanged
-    unignore = update-index --no-assume-unchanged
-    ignored = !git ls-files -v | grep "^[[:lower:]]"
+   comit = commit
+   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+   last = log -1 HEAD --stat
+   s = status
+   co = checkout
+   pullr = pull --rebase
+   # prettier stash list
+   st = stash list --pretty=format:\"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(70,trunc)%s %C(green)(%ci, %cr) %C(bold blue)<%an>%C(reset)\"
+   # https://stackoverflow.com/a/18317425/5888924
+   ignore = update-index --assume-unchanged
+   unignore = update-index --no-assume-unchanged
+   ignored = !git ls-files -v | grep "^[[:lower:]]"
