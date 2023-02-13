@@ -73,7 +73,7 @@ end
 require('mason').setup()
 
 -- Enable the following language servers
-local servers = { 'pyright', 'sumneko_lua', 'volar', 'bashls', 'eslint', 'jsonls' }
+local servers = { 'pyright', 'sumneko_lua', 'volar', 'bashls', 'eslint', 'jsonls', 'cssls' }
 
 -- Ensure the servers above are installed
 require('mason-lspconfig').setup {
