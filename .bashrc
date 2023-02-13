@@ -113,6 +113,8 @@ alias gl='git lg'
 # show comits since last tagged commit
 alias gt='git log $(git describe --tags --abbrev=0)..HEAD --oneline'
 
+alias lgit=lazygit
+
 # some more ls aliases
 alias ll='ls -alFh'
 alias la='ls -A'

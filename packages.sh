@@ -47,6 +47,9 @@ python3 -m pip install --user --upgrade pynvim
 echo 'installing ripgrep'
 sudo apt-get install -y ripgrep
 
+echo 'installing lazygit'
+sudo ./install_scripts/install_lazygit.sh
+
 ## watchman, makes coc-volar faster (TODO update url occasionally)
 #echo 'installing watchman'
 #cd -p /tmp/ && wget https://github.com/facebook/watchman/releases/download/v2022.06.13.00/watchman-v2022.06.13.00-linux.zip
