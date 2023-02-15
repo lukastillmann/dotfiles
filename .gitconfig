@@ -17,3 +17,11 @@
    unignore = update-index --no-assume-unchanged
    ignored = !git ls-files -v | grep "^[[:lower:]]"
    dev = checkout develop
+[merge]
+   tool = vscode
+[diff]
+   tool = vscode
+[difftool "vscode"]
+   cmd = code --wait --diff $LOCAL $REMOTE
+[mergetool "vscode"]
+   cmd = code --wait --merge $LOCAL $REMOTE $MERGED
