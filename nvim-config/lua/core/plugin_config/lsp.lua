@@ -73,7 +73,7 @@ end
 require('mason').setup()
 
 -- Enable the following language servers
-local servers = { 'pyright', 'sumneko_lua', 'volar', 'bashls', 'eslint', 'jsonls', 'cssls' }
+local servers = { 'pyright', 'lua_ls', 'volar', 'bashls', 'eslint', 'jsonls', 'cssls' }
 
 -- Ensure the servers above are installed
 require('mason-lspconfig').setup {
@@ -127,7 +127,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-require('lspconfig').sumneko_lua.setup {
+require('lspconfig').lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {

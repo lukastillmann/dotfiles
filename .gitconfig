@@ -24,4 +24,4 @@
 [difftool "vscode"]
    cmd = code --wait --diff $LOCAL $REMOTE
 [mergetool "vscode"]
-   cmd = code --wait --merge $LOCAL $REMOTE $MERGED
+   cmd = code --wait --merge $MERGED
