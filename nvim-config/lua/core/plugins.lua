@@ -151,6 +151,10 @@ packer.startup(function(use)
 
   use { 'nvim-telescope/telescope-ui-select.nvim' }
 
+  use { 'aaronhallaert/advanced-git-search.nvim',
+    requires = { "nvim-telescope/telescope.nvim", "tpope/vim-fugitive" }
+  }
+
   -----------------------------------------------------------
   -- Misc
   -----------------------------------------------------------
