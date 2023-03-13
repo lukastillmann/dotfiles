@@ -128,6 +128,7 @@ packer.startup(function(use)
   use "junegunn/vim-slash" -- better behavior when searching with /
   use "jghauser/mkdir.nvim" -- automatically create missing directories
   use "windwp/nvim-autopairs" -- autoclose brackets and other characters
+  use 'chentoast/marks.nvim' -- better user experience for marks
 
 
   -----------------------------------------------------------
@@ -182,6 +183,10 @@ packer.startup(function(use)
   use 'eandrju/cellular-automaton.nvim'
 
   use 'stevearc/aerial.nvim'
+
+  use { 'windwp/nvim-spectre',
+    requires = { "nvim-lua/plenary.nvim" }
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
