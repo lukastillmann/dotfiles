@@ -1,8 +1,8 @@
 [user]
-	email = lukas.tillmann@orf.at
-	name = Lukas Tillmann
+  email = lukas.tillmann@orf.at
+  name = Lukas Tillmann
 [core]
-	editor = vim
+  editor = vim
 [alias]
    comit = commit
    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
@@ -17,6 +17,7 @@
    unignore = update-index --no-assume-unchanged
    ignored = !git ls-files -v | grep "^[[:lower:]]"
    dev = checkout develop
+   main = checkout main
 [merge]
    tool = vscode
 [diff]
@@ -25,3 +26,5 @@
    cmd = code --wait --diff $LOCAL $REMOTE
 [mergetool "vscode"]
    cmd = code --wait --merge $MERGED
+[init]
+   defaultBranch = main
