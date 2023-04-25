@@ -13,14 +13,13 @@ opt.completeopt = 'menuone,noinsert,noselect'  -- Autocomplete options
 opt.path = vim.o.path .. "**"         -- search down into subfolders
 
 opt.swapfile = false
+vim.cmd([[colorscheme onedark]])
 
 -----------------------------------------------------------
 -- Neovim UI
 -----------------------------------------------------------
 opt.number = true           -- Show line number
 opt.showmatch = true        -- Highlight matching parenthesis
---opt.colorcolumn = '80'      -- Line lenght marker at 80 columns
---opt.splitright = true       -- Vertical split to the right
 opt.splitbelow = true       -- Horizontal split to the bottom
 
 -- Case insensitive searching UNLESS /C or capital in search
@@ -38,13 +37,6 @@ opt.cmdheight=1             -- set cmdheight to two lines
 opt.incsearch=true
 opt.hlsearch=true
 opt.visualbell=true         -- disable beep sound
-
------------------------------------------------------------
--- Colorscheme
------------------------------------------------------------
-
-opt.termguicolors = true    -- Enable 24-bit RGB colors
---vim.cmd [[colorscheme onedark]]
 
 -----------------------------------------------------------
 -- Folding

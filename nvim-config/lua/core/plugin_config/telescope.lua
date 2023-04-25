@@ -83,15 +83,20 @@ map('n', '<leader>fw', builtin.grep_string, { desc = '[F]ind current [W]ord' })
 map('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
 map('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
 map('n', '<leader>fr', builtin.resume, { desc = '[F]ind [R]resume last telescope' })
-map('n', '<leader>n', extensions.file_browser.file_browser, { desc = "Open File Browser"})
+map('n', '<leader>gr', builtin.lsp_references, { desc = '[G]oto [R]eferences' })
+map('n', '<leader>n', extensions.file_browser.file_browser, { desc = "Open File Browser" })
+
+map('n', '<leader>ds', builtin.lsp_document_symbols, { desc = '[D]ocument [S]ymbols' })
+map('n', '<leader>ws', builtin.lsp_dynamic_workspace_symbols, { desc = '[W]orkspace [S]ymbols' })
+
 
 -- git
-map('n', '<leader>gb', builtin.git_branches, { desc = '[G]it [B]ranches'})
-map('n', '<leader>gs', builtin.git_status, { desc = '[G]it [S]tatus'})
+map('n', '<leader>gb', builtin.git_branches, { desc = '[G]it [B]ranches' })
+map('n', '<leader>gs', builtin.git_status, { desc = '[G]it [S]tatus' })
 
 -- advanced git search extension
 map('n', '<leader>gf', extensions.advanced_git_search.diff_commit_file, { desc = "[G]it commits for [F]ile" })
-map('n', '<leader>gl', extensions.advanced_git_search.diff_commit_line, { desc = "[G]it commits for [L]ine"})
+map('n', '<leader>gl', extensions.advanced_git_search.diff_commit_line, { desc = "[G]it commits for [L]ine" })
 
 -- aerial
 map('n', '<leader>a', extensions.aerial.aerial, { desc = 'Open [A]erial using telescope ' })
