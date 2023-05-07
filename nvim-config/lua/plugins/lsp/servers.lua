@@ -3,6 +3,7 @@ local M = {}
 local servers = {
 	eslint = {},
 	volar = {},
+	tsserver = {},
 	--	pyright = {
 	--		settings = {
 	--			python = {

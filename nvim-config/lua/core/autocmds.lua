@@ -5,23 +5,23 @@
 -- Define autocommands with Lua APIs
 -- See: h:api-autocmd, h:augroupo
 
-local augroup = vim.api.nvim_create_augroup   -- Create/get autocommand group
-local autocmd = vim.api.nvim_create_autocmd   -- Create autocommand
+local augroup = vim.api.nvim_create_augroup -- Create/get autocommand group
+local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
 
 -- Highlight on yank
-augroup('YankHighlight', { clear = true })
-autocmd('TextYankPost', {
-  group = 'YankHighlight',
-  callback = function()
-    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = '200' })
-  end
+augroup("YankHighlight", { clear = true })
+autocmd("TextYankPost", {
+	group = "YankHighlight",
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = "200" })
+	end,
 })
 
 -- Remove whitespace on save
-autocmd('BufWritePre', {
-  pattern = '*',
-  command = ":%s/\\s\\+$//e"
-})
+-- autocmd('BufWritePre', {
+--   pattern = '*',
+--   command = ":%s/\\s\\+$//e"
+-- })
 
 -- disable auto commenting new lines
 -- autocmd('BufEnter', {
@@ -30,9 +30,9 @@ autocmd('BufWritePre', {
 -- })
 
 -- enable correct auto-intending for comments in vue files
-autocmd('FileType', {
-    pattern = 'vue',
-    command = 'set fo=croq'
+autocmd("FileType", {
+	pattern = "vue",
+	command = "set fo=croq",
 })
 
 -- enable format on save for js files
