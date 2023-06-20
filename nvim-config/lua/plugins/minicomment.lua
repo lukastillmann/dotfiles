@@ -1,3 +1,5 @@
+vim.cmd([[map // gcc]]) -- could not get this mapping to work with lua
+
 return {
 	"echasnovski/mini.comment",
 	event = "VeryLazy",
