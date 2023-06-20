@@ -12,11 +12,8 @@ return {
 		telescope.load_extension("advanced_git_search")
 		telescope.load_extension("notify")
 		telescope.load_extension("luasnip")
+		telescope.load_extension("aerial")
 
-		--        -- enable telescope for aerial
-		--        telescope.load_extension('aerial')
-		--
-		--re
 		telescope.setup(opts)
 	end,
 	opts = {
@@ -55,10 +52,15 @@ return {
 		{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", { desc = "Switch Buffer" } },
 		{ "ff", Util.telescope("files"), { desc = "[F]ind [F]iles" } },
 		{ "<leader>fg", Util.telescope("live_grep"), { desc = "[F]ind by [G]rep" } },
+		{ "<leader>fw", Util.telescope("grep_string"), { desc = "[F] current [W]ord" } },
 		{ "<leader>fr", Util.telescope("resume"), { desc = "[F]ind [Resume] last telescope" } },
 
 		-- git
 		{ "<leader>gb", Util.telescope("git_branches"), { desc = "[G]it [B]rances" } },
+
+		-- aerial
+		{ "<leader>a", "<cmd>Telescope aerial<cr>", { desc = "Open [A]erial using telescope" } },
+		{ "<leader>A", require("aerial").toggle, { desc = "Open [A]erial" } },
 		--		{
 		--			"<leader>gf",
 		--			require("telescope").extensions.advanced_git_search.diff_commit_file,
