@@ -2,7 +2,7 @@
   email = lukas.tillmann@orf.at
   name = Lukas Tillmann
 [core]
-  editor = vim
+  editor = nvim
 [alias]
    comit = commit
    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
