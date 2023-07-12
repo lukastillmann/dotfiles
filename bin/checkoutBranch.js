@@ -1,11 +1,10 @@
 /* First two elements in arguments array are node specific. The third index contains the first argument provided to the script */
 const args = process.argv.slice(2);
-const PROJECT_NAME = "SOUND";
 
 const cmd = {
     thisBranch: "git rev-parse --abbrev-ref HEAD",
     getBranches: "git branch -r --merged | grep -v HEAD",
-    findBranch: (string) => `git branch -a | grep ${string} | head -n 1`,
+    findBranch: (string) => `git branch -a | grep -i ${string} | head -n 1`,
     getLastChanges: (branchName) => `git show --format="%ci" ${branchName} | head -n 1`,
     branchExists: (branchName) => `git rev-parse --verify ${branchName}`,
     tagExists: (tagName) => `git tag -l ${tagName}`,
