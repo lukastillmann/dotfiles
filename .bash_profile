@@ -8,13 +8,14 @@ source $HOME/.keychain/$HOSTNAME-sh
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh # This loads NVM
 nvm use 18
 
-export PATH=$PATH:~/ringojs/bin/
-export RINGO_HOME=~/ringojs/
-# deno
-export DENO_INSTALL="/home/lukas/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
-
 if [ -f $HOME/.bashrc ]; then
 	source $HOME/.bashrc
 fi
+
+# move secrets, local environment variables and exports into
+# .bash_local file
+if [ -f $HOME/.bash_local ]; then
+	source $HOME/.bash_local
+fi
+
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
