@@ -1,3 +1,9 @@
+--[[
+Snippet Engine for Neovim written in Lua.
+
+Source: https://github.com/L3MON4D3/LuaSnip
+--]]
+
 return {
 	"L3MON4D3/LuaSnip",
 	build = (not jit.os:find("Windows"))

@@ -1,4 +1,10 @@
--- noicer ui
+--------------------------------------------------------------------------
+--- Highly experimental plugin that completely replaces the UI for
+--- messages, cmdline and the popupmenu.
+---
+--- Source: https://github.com/folke/noice.nvim
+--------------------------------------------------------------------------
+
 return {
 	"folke/noice.nvim",
 	event = "VeryLazy",

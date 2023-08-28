@@ -1,4 +1,10 @@
--- seamlessly navigate between neovim and tmux
+---------------------------------------------------------------------------------
+--- Navigator.nvim provides set of functions and commands that allows you to
+--- seamlessly navigate between neovim and different terminal multiplexers.
+---
+---Source: https://github.com/numToStr/Navigator.nvim
+---------------------------------------------------------------------------------
+
 return {
 	"numToStr/Navigator.nvim",
 	opts = function()

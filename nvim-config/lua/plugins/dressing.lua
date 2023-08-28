@@ -1,4 +1,9 @@
--- better vim.ui
+--[[
+Better vim.ui
+
+Source: https://github.com/stevearc/dressing.nvim
+--]]
+
 return {
 	"stevearc/dressing.nvim",
 	lazy = true,

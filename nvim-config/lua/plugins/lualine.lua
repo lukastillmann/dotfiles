@@ -1,4 +1,9 @@
--- statusline
+--[[
+A blazing fast and easy to configure Neovim statusline written in Lua.
+
+Source: https://github.com/nvim-lualine/lualine.nvim
+--]]
+
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
