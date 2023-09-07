@@ -4,13 +4,17 @@ echo 'updating, upgrading...'
 sudo apt-get update -y && sudo apt-get upgrade -y
 
 echo 'installing essential tools'
-sudo apt install -y build-essential cmake git-all python python-dev python3 python3-dev python3-pip apache2 postgresql
+sudo apt install -y build-essential cmake git-all python python-dev python3 python3-dev python3-pip apache2 postgresql 
+
+# build prerequisites for homebrew
+sudo apt-get install -y git curl file procps
 # build prerequisites for neovim
 sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
 
 echo 'installing apache'
 sudo apt install -y apache2
 sudo a2enmod proxy
+sudo a2enmod proxy_http
 sudo service apache2 start
 
 echo 'installing useful tools'
