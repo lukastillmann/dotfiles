@@ -1,6 +1,8 @@
+local Util = require("util")
+
 return {
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
+    branch = 'v3.x',
     dependencies = {
         -- LSP Support
         { 'neovim/nvim-lspconfig' },             -- Required
@@ -19,11 +21,22 @@ return {
         -------
         --- Setup Presets
         -------
-        lsp.preset("recommended")
         lsp.on_attach(function(_, bufnr)
             -- see :help lsp-zero-keybindings
             -- to learn the available actions
             lsp.default_keymaps({ buffer = bufnr })
+
+            local opts = {
+                buffer = bufnr
+            }
+
+            -- setup custom keymaps
+            vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+            vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+            vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+            vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+            vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+            vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
         end)
 
         ------
@@ -38,6 +51,7 @@ return {
             servers = {
                 ['eslint'] = { 'javascript', 'vue', 'typescript' },
                 ['lua_ls'] = { 'lua' },
+                ['jsonls'] = { 'json' }
             }
         })
 
@@ -91,6 +105,14 @@ return {
         -------
 
         require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+
+        ------
+        --- JSON
+        -------
+
+        -- works but causes errors atm :-(
+        -- require('lspconfig').jsonls.setup()
+        --]]
     end
 
     --[[
