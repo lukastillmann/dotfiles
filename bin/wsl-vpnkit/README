@@ -1,0 +1,13 @@
+# wsl-vpnkit
+
+The wsl-vpnkit v0.4 script uses gvisor-tap-vsock to provide network connectivity to the WSL 2 VM while connected to VPNs on the Windows host. This requires no settings changes or admin privileges on the Windows host.
+
+## Source 
+
+https://github.com/sakai135/wsl-vpnkit
+
+## Usage
+
+To install, run `install_vpnkit.sh` script
+
+To run it, run `run_vpnkit.sh` whenever connected to a vpn and leave it running
