@@ -41,7 +41,7 @@ options=("Nightly" "Release (Default)" "exit script")
 select opt in "${options[@]}"; do
 	case $opt in
 	"Nightly")
-		BUILD_TYPE="$opt"
+		BUILD_TYPE="RelWithDebInfo"
 		break
 		;;
 	"Release (Default)")
