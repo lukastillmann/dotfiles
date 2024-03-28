@@ -6,5 +6,9 @@ return {
     config = function(_, opts)
         require("mini.files").setup(opts)
     end,
-
+    opts = {
+        mappings = {
+            synchronize = 'S',
+        }
+    }
 }
