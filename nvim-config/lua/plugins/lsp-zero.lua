@@ -49,10 +49,12 @@ return {
                 timeout_ms = 10000,
             },
             -- configure filetype for each available lsp server
+            -- that should use auto-formatting on save
             servers = {
-                ['eslint'] = { 'javascript', 'vue', 'typescript' },
-                ['lua_ls'] = { 'lua' },
-                ['jsonls'] = { 'json' }
+                ["eslint"] = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
+                ["lua_ls"] = { "lua" },
+                ["jsonls"] = { "json" },
+                ["pyright"] = { "python" }
             }
         })
 
@@ -108,68 +110,34 @@ return {
         require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
         ------
-        --- JSON
-        -------
-
-        -- works but causes errors atm :-(
-        -- require('lspconfig').jsonls.setup()
-        --]]
-    end
-
-    --[[
-    config = function()
-        local lsp = require("lsp-zero")
-        local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-        -------
-        --- Setup Presets
-        -------
-        lsp.preset("recommended")
-        lsp.on_attach(function(_, bufnr)
-            -- see :help lsp-zero-keybindings
-            -- to learn the available actions
-            lsp.default_keymaps({ buffer = bufnr })
-        end)
-
+        --- CSS/SASS
         ------
-        --- Format on Save
-        -------
-        lsp.format_on_save({
-            format_opts = {
-                async = false,
-                timeout_ms = 10000,
-            },
-            -- configure filetype for each available lsp server
-            servers = {
-                ['eslint'] = { 'javascript', 'vue' },
-                ['lua_ls'] = { 'lua' },
+
+        require("lspconfig").cssls.setup({
+            capabilities = lsp_capabilities,
+            on_attach = function(_, bufnr)
+                lsp.default_keymaps({ buffer = bufnr })
+            end,
+        })
+
+        require("lspconfig").stylelint_lsp.setup({
+            capabilities = lsp_capabilities,
+            on_attach = function(_, bufnr)
+                lsp.default_keymaps({ buffer = bufnr })
+            end,
+            root_dir = require("lspconfig").util.root_pattern(".git", "package.json"),
+            settings = {
+                stylelintplus = {
+                    -- see available options in stylelint-lsp documentation
+                }
             }
         })
 
         ------
-        --- Lua
+        --- Python
         -------
 
-        require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-
-        ------
-        --- Volar
-        -------
-
-        -- require('lspconfig').volar.setup({
-        --     capabilities = lsp_capabilities,
-        --     on_attach = function(_, bufnr)
-        --         lsp.default_keymaps({ buffer = bufnr })
-        --     end,
-        -- })
-
-
-
-        ------
-        --- tsserver (Javascript, Typescript)
-        -------
-
-        require('lspconfig').tsserver.setup({
+        require("lspconfig").pyright.setup({
             capabilities = lsp_capabilities,
             on_attach = function(_, bufnr)
                 lsp.default_keymaps({ buffer = bufnr })
@@ -177,28 +145,11 @@ return {
         })
 
         ------
-        --- Setup lsp-zero
+        --- JSON
         -------
 
-        lsp.setup()
-        vim.diagnostic.config { virtual_text = true }
-    end
-    --]]
-}
---[[
-	config = function(_, opts)
-        local lsp = require('lsp-zero').preset({})
-
-        lsp.on_attach(function(client, bufnr)
-          -- see :help lsp-zero-keybindings
-          -- to learn the available actions
-          lsp.default_keymaps({buffer = bufnr})
-        end)
-
-        -- (Optional) Configure lua language server for neovim
-        require('lspconfig').tsserver.setup()
-
-        lsp.setup()
+        -- works but causes errors atm :-(
+        -- require('lspconfig').jsonls.setup()
+        --]]
     end
 }
---]]

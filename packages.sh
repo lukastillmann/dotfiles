@@ -31,6 +31,8 @@ nvm install node
 
 echo 'installing global npm packages: prettier, gulp-cli'
 sudo npm install -g prettier gulp-cli
+# important language server that might not get auto-installted by mason
+sudo npm i -g vscode-langservers-extracted
 
 echo 'installing neovim'
 sudo ./install_scripts/install_neovim.sh
