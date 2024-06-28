@@ -37,6 +37,16 @@ map("n", "<A-x>", "<C-x>")
 -- add a console.log statement of the word under the cursor
 map("n", "<leader>L", 'yiwoconsole.log("<Esc>pa", <Esc>pa);<Esc>')
 
+-- quickly move to template, script or style block in Vue files
+map("n", "mt", '/<template><cr>:nohl<cr>', { desc = "<M>ove to <t>emplate tag" });
+map("n", "ms", '/<script<cr>:nohl<cr>', { desc = "<m>ove to <sc>ript tag" });
+map("n", "mst", '/<style<cr>:nohl<cr>', { desc = "<m>ove to <st>yle tag" });
+
+map("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "open [d]iagnostic in float" })
+
+-- disable F1 for help files (to prevent accidental hits)
+map("n", "<F1>", "<Nop>")
+
 -----------------------------------------------------------
 -- Splits and Panes (Neovim and Tmux)
 -----------------------------------------------------------
