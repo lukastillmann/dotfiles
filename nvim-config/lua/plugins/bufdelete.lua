@@ -1,3 +1,9 @@
+--------------------------------------------------------------------------
+--- Delete Neovim buffers without losing window layout
+---
+--- Source: https://github.com/famiu/bufdelete.nvim
+--------------------------------------------------------------------------
+
 return {
 	"famiu/bufdelete.nvim",
 	keys = {
