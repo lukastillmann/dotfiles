@@ -54,7 +54,8 @@ return {
                 ["eslint"] = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
                 ["lua_ls"] = { "lua" },
                 ["jsonls"] = { "json" },
-                ["pyright"] = { "python" }
+                ["pyright"] = { "python" },
+                ["html"] = { "html" }
             }
         })
 
@@ -110,12 +111,28 @@ return {
         require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
         ------
+        --- HTML
+        --- source: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#html
+        ------
+        local html_capabilities = vim.lsp.protocol.make_client_capabilities()
+        html_capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+        require('lspconfig').html.setup({
+            capabilities = html_capabilities,
+        })
+
+        ------
         --- CSS/SASS
         ------
 
         require("lspconfig").cssls.setup({
             capabilities = lsp_capabilities,
             on_attach = function(_, bufnr)
+                -- use Prettier on save
+                vim.api.nvim_create_autocmd("BufWritePre", {
+                    buffer = bufnr,
+                    command = "Prettier",
+                })
                 lsp.default_keymaps({ buffer = bufnr })
             end,
         })
