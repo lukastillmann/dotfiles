@@ -11,10 +11,10 @@ local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
 -- Highlight on yank
 augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {
-	group = "YankHighlight",
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = "200" })
-	end,
+    group = "YankHighlight",
+    callback = function()
+        vim.highlight.on_yank({ higroup = "IncSearch", timeout = "200" })
+    end,
 })
 
 -- Remove whitespace on save
@@ -31,8 +31,8 @@ autocmd("TextYankPost", {
 
 -- enable correct auto-intending for comments in vue files
 autocmd("FileType", {
-	pattern = "vue",
-	command = "set fo=croq",
+    pattern = "vue",
+    command = "set fo=croq",
 })
 
 -- enable format on save for js files
@@ -48,6 +48,6 @@ autocmd("FileType", {
 --vim.cmd("autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js,*.vue EslintFixAll")
 
 -- Show line diagnostics automatically in hover window
---vim.cmd([[
---  autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, { focus = false })
---]])
+vim.cmd([[
+  autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, { focus = false })
+]])

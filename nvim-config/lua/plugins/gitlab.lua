@@ -10,6 +10,7 @@ return {
         "MunifTanjim/nui.nvim",
         "nvim-lua/plenary.nvim",
         "sindrets/diffview.nvim",
+        "navarasu/onedark.nvim",      -- Adding my colorscheme to dependencies prevents "invalid highlight color" error
         "stevearc/dressing.nvim",     -- Recommended but not required. Better UI for pickers.
         "nvim-tree/nvim-web-devicons" -- Recommended but not required. Icons in discussion tree.
     },
