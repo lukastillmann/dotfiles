@@ -9,7 +9,7 @@ return {
     build = (not jit.os:find("Windows"))
         and "echo -e 'NOTE: jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp"
         or nil,
-    version = "2.*",
+    version = "v2.*",
     dependencies = {
         "rafamadriz/friendly-snippets",
     },
@@ -19,7 +19,12 @@ return {
             history = true,
             updateevents = "TextChanged,TextChangedI",
         })
+
         -- Load friendly-snippets
         require("luasnip.loaders.from_vscode").lazy_load()
+
+        -- Load custom snippets
+        -- !! make sure all json files are valid json - this fails if there is a single comma error !!
+        require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/lua/snippets" })
     end
 }
