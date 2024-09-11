@@ -51,7 +51,7 @@ return {
         -------
 
         require('lspconfig').lua_ls.setup(lsp_zero.nvim_lua_ls())
-        require('lspconfig').tsserver.setup({})
+        require('lspconfig').ts_ls.setup({})
         require("lspconfig").eslint.setup({})
         require("lspconfig").volar.setup({
             init_options = {
