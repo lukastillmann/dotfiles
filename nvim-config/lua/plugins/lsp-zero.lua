@@ -60,7 +60,12 @@ return {
                     -- I dont know why
                     --
                     -- see https://github.com/vuejs/language-tools/issues/4339
-                    hybridMode = false
+                    hybridMode = false,
+                },
+                typescript = {
+                    -- setting the typescript location manually prevents "Can't find typescript.js or tsserverlibrary.js" errors
+                    tsdk =
+                    "/home/lukas/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib/"
                 }
             }
         })
@@ -96,4 +101,21 @@ return {
 -- EXPLANATION
 --
 -- seems to be an error with version 2.0.29 of the @vue/language-server package. Updateing the packages above works for now (2024-08-26)
+--
+-- ERROR: Can't find typescript.js or tsserverlibrary.js
+--
+-- SOLUTION:
+-- set a global typescript path directly in the nvim config.
+--        require("lspconfig").volar.setup({
+            init_options = {
+                  typescript = {
+                    tsdk =
+                    "/home/lukas/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib/"
+                }
+            }
+        })
+--
+-- EXPLANATION:
+--
+-- Volar expects typesript to be installed in the workspace that was openened. If the project does not include typescript, this creates an error.
 --]]
