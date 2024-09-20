@@ -55,3 +55,5 @@ vim.api.nvim_create_user_command('Log', function()
         vim.notify('Environment variable LOGBOOK_DIR is not set or is empty', vim.log.levels.ERROR)
     end
 end, {})
+
+-- for mini.files bookmark see /plugins/minifiles.lua
