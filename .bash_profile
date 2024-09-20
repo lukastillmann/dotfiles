@@ -18,4 +18,19 @@ if [ -f $HOME/.bash_local ]; then
 	source $HOME/.bash_local
 fi
 
+alias todo='vim $LOGBOOK_DIR/todo.md'
+
+# Open my dev logbook file for the day
+function log() {
+    DATE=$(date "+%Y-%m-%d")
+    FILE="$LOGBOOK_DIR/${DATE}.md"
+
+    # replaced by nvim snippet
+    # if [ ! -f "$FILE" ]; then
+    #     echo "# $DATE" > "$FILE"
+    # fi
+
+    vim "$FILE"
+}
+
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
