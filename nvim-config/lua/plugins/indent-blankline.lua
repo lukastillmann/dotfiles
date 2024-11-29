@@ -8,9 +8,9 @@ Source: https://github.com/lukas-reineke/indent-blankline.nvim
 
 return {
     "lukas-reineke/indent-blankline.nvim",
+    tag = 'v3.8.2', -- update, when https://github.com/lukas-reineke/indent-blankline.nvim/issues/936 is fixed
     main = "ibl",
     opts = {
-        -- char = "▏",
         indent = {
             char = "│",
         },
