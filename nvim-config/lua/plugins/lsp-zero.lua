@@ -29,23 +29,24 @@ return {
 
         ------
         --- Format on Save
+        --- INFO format_on_save is now provided by conform.lua plugin
         -------
-        lsp_zero.format_on_save({
-            format_opts = {
-                async = false,
-                timeout_ms = 10000,
-            },
-            -- configure filetype for each available lsp server
-            -- that should use auto-formatting on save
-            servers = {
-                ["eslint"] = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
-                ["lua_ls"] = { "lua" },
-                ["jsonls"] = { "json" },
-                ["pyright"] = { "python" },
-                ["html"] = { "html" }
-            }
-        })
-
+        -- lsp_zero.format_on_save({
+        --     format_opts = {
+        --         async = false,
+        --         timeout_ms = 10000,
+        --     },
+        --     -- configure filetype for each available lsp server
+        --     -- that should use auto-formatting on save
+        --     servers = {
+        --         ["eslint"] = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
+        --         ["lua_ls"] = { "lua" },
+        --         ["jsonls"] = { "json" },
+        --         ["pyright"] = { "python" },
+        --         ["html"] = { "html" }
+        --     }
+        -- })
+        --
         ------
         --- Language Servers
         -------
@@ -71,16 +72,7 @@ return {
         })
         require("lspconfig").pyright.setup({})
         require('lspconfig').html.setup({})
-        require("lspconfig").cssls.setup({
-            on_attach = function(client, bufnr)
-                -- use Prettier on save
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                    buffer = bufnr,
-                    command = "Prettier",
-                })
-                lsp_attach(client, bufnr)
-            end,
-        })
+        require("lspconfig").cssls.setup({})
     end
 }
 
