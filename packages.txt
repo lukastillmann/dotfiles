@@ -13,7 +13,7 @@
 sudo apt-get update && sudo apt-get upgrade && sudo apt install build-essential cmake python3 python3-dev apache2 keychain postgresql
 
 # node/npm
-curl -sL https://deb.nodesource.com/setup_10.x | sudo bash - && sudo apt install nodejs && sudo npm install -g prettier gulp-cli
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash - && sudo apt install nodejs && sudo npm install -g prettier @fsouza/prettierd gulp-cli
 
 # RINGOJS # TODO: switch to tar version
 wget -P ~/tmp/ https://ringojs.org/releases/1.2.1/ringojs_1.2.1_all.deb && sudo apt install ~/tmp/ringojs_1.2.1_all.deb && sudo mkdir /usr/share/ringojs/bin && sudo ringo-admin install http://packages.ringojs.org/download/rp/latest
