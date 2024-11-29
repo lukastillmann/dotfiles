@@ -35,7 +35,11 @@ map("n", "<A-a>", "<C-a>")
 map("n", "<A-x>", "<C-x>")
 
 -- add a console.log statement of the word under the cursor
-map("n", "<leader>L", 'yiwoconsole.log("<Esc>pa", <Esc>pa);<Esc>')
+map("n", "<leader>C", 'yiwoconsole.log("<Esc>pa", <Esc>pa);<Esc>')
+map("n", "<leader>L", 'yiwolog("<Esc>pa", <Esc>pa);<Esc>')
+
+-- paste yanked content in line below
+map('n', '<leader>P', 'o<Esc>p', { desc = "<P>aste yanked content in line blow" })
 
 -- quickly move to template, script or style block in Vue files
 map("n", "mt", '/<template><cr>:nohl<cr>', { desc = "<M>ove to <t>emplate tag" });
@@ -68,3 +72,5 @@ map("n", "<leader>l", ":vsplit<cr><C-W><C-L>")
 map("n", "<leader>j", ":new<cr><C-W><C-J>")
 map("n", "<leader>h", ":vsplit<cr>")
 map("n", "<leader>k", ":new<cr>")
+
+map("n", "<C-l>r", "<cmd>LspRestart<cr>");
