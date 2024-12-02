@@ -16,6 +16,7 @@ return {
                 css = { "prettier" },
                 scss = { "prettier" },
                 vue = { "prettier" },
+                lua = { lsp_format = "prefer" },
             },
             format_on_save = {
                 timeout_ms = 1000,
@@ -49,5 +50,9 @@ return {
         vim.keymap.set("n", "<F3>", function()
             conform.format({ async = true, lsp_format = "never" })
         end, { desc = "Format with Conform" })
+
+        vim.keymap.set("n", "<leader>p", function()
+            conform.format({ async = true, lsp_format = "fallback" })
+        end, { desc = "Format with Conform and LSP Fallback" })
     end
 }
