@@ -42,13 +42,12 @@ return {
                 --             vim.fn.filereadable(".prettierrc.js") == 1
                 --     end,
                 -- },
-
-            }
-
+            },
+            -- log_level = vim.log.levels.TRACE
         })
 
-        vim.keymap.set("n", "<leader>fc", function()
-            conform.format({ async = true, lsp_format = "fallback" })
+        vim.keymap.set("n", "<F3>", function()
+            conform.format({ async = true, lsp_format = "never" })
         end, { desc = "Format with Conform" })
     end
 }
