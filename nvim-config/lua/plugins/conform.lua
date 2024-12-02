@@ -5,20 +5,21 @@ return {
 
         conform.setup({
             formatters_by_ft = {
-                javascript = { "prettierd" },
-                typescript = { "prettierd" },
-                javascriptreact = { "prettierd" },
-                typescriptreact = { "prettierd" },
-                json = { "prettierd" },
-                yaml = { "prettierd" },
-                markdown = { "prettierd" },
-                html = { "prettierd" },
-                css = { "prettierd" },
-                scss = { "prettierd" },
+                javascript = { "prettier" },
+                typescript = { "prettier" },
+                javascriptreact = { "prettier" },
+                typescriptreact = { "prettier" },
+                json = { "prettier" },
+                yaml = { "prettier" },
+                markdown = { "prettier" },
+                html = { "prettier" },
+                css = { "prettier" },
+                scss = { "prettier" },
+                vue = { "prettier" },
             },
             format_on_save = {
                 timeout_ms = 1000,
-                lsp_format = "fallback" -- use language server as fallback
+                lsp_format = "never" -- use language server as fallback
             },
             formatters = {
                 -- the following config is not needed currently, the prettier config is read correctly.
