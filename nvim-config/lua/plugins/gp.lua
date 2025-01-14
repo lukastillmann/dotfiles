@@ -19,10 +19,6 @@ return {
         local conf = {
             -- For customization, refer to Install > Configuration in the Documentation/Readme
             openai_api_key = os.getenv("OPENAI_API_KEY"),
-            log_sensitive = false,
-
-            default_command_agent = nil,
-            default_chat_agent = "ChatGPT4o",
             agents = {
                 {
                     name = "ChatGPT4o",
@@ -39,11 +35,11 @@ return {
                         .. "- Give code examples whenever possible \n"
                 },
             }
+
         }
         require("gp").setup(conf)
 
         -- Setup shortcuts here (see Usage > Shortcuts in the Documentation/Readme)
-
         vim.keymap.set({ "n", "i" }, "<C-g>c", "<cmd>GpChatNew popup<cr>", keymapOptions("New Chat"))
         vim.keymap.set({ "n", "i" }, "<C-g>t", "<cmd>GpChatToggle popup<cr>", keymapOptions("Toggle Chat"))
         vim.keymap.set({ "n", "i" }, "<C-g>f", "<cmd>GpChatFinder<cr>", keymapOptions("Chat Finder"))

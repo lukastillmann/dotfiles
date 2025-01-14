@@ -36,13 +36,6 @@ return {
                     }
                 end
             end,
-        xformat_on_save = {
-                timeout_ms = 2000,
-                lsp_format = "fallback",          -- use language server as fallback
-                callback = function()
-                    return format_on_save_enabled -- Checks if format_on_save is enabled
-                end
-            },
             -- Conform will notify you when a formatter errors
             notify_on_error = true,
             -- Conform will notify you when no formatters are available for the buffer
