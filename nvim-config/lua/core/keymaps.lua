@@ -39,7 +39,7 @@ map("n", "<leader>C", 'yiwoconsole.log("<Esc>pa", <Esc>pa);<Esc>')
 map("n", "<leader>L", 'yiwolog("<Esc>pa", <Esc>pa);<Esc>')
 
 -- paste yanked content in line below
-map('n', '<leader>P', 'o<Esc>p', { desc = "<P>aste yanked content in line blow" })
+map('n', '<leader>P', 'o<Esc>P', { desc = "<P>aste yanked content in line blow" })
 
 -- quickly move to template, script or style block in Vue files
 map("n", "mt", '/<template><cr>:nohl<cr>', { desc = "<M>ove to <t>emplate tag" });
@@ -74,3 +74,21 @@ map("n", "<leader>h", ":vsplit<cr>")
 map("n", "<leader>k", ":new<cr>")
 
 map("n", "<C-l>r", "<cmd>LspRestart<cr>");
+
+vim.api.nvim_create_user_command("FluidCleanup", function(opts)
+    local start_line = opts.line1 - 1 -- Lua is 0-indexed
+    local end_line = opts.line2       -- exclusive
+
+    local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
+
+    for i, line in ipairs(lines) do
+        line = line:gsub("fluid%-base", "fluid")
+        line = line:gsub("fluid%-1%-pair", "fluid")
+        line = line:gsub("fluid%-2%-pair", "fluid")
+        line = line:gsub(",%s%d+px", "")
+
+        lines[i] = line
+    end
+
+    vim.api.nvim_buf_set_lines(0, start_line, end_line, false, lines)
+end, { range = true })
