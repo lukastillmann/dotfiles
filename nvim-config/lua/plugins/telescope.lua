@@ -61,10 +61,10 @@ return {
         -- aerial
         { "<leader>a",  "<cmd>Telescope aerial<cr>",                        desc = "Open [A]erial using telescope" },
         { "<leader>A",  require("aerial").toggle,                           desc = "Open [A]erial" },
-        --		{
-        --			"<leader>gf",
-        --			require("telescope").extensions.advanced_git_search.diff_commit_file,
-        --			{ desc = "[G]it commits for [F]ile" },
-        --		},
+        {
+            "<leader>gf",
+            require("telescope").extensions.advanced_git_search.diff_commit_file,
+            { desc = "[G]it commits for [F]ile" },
+        },
     },
 }
