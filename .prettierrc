@@ -1,0 +1,6 @@
+{
+    "tabWidth": 4,
+    "quoteProps": "consistent",
+    "bracketSpacing": false,
+    "printWidth": 100
+}
