@@ -1,3 +1,9 @@
+----------------------------------------------------------
+-- A starting point to setup some lsp related features in neovim.
+-- --
+-- Source: https://github.com/VonHeikemen/lsp-zero.nvim
+----------------------------------------------------------
+
 return {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v4.x',
@@ -19,6 +25,7 @@ return {
             vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
             -- vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
             vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+            vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
         end
 
         lsp_zero.extend_lspconfig({
@@ -26,6 +33,18 @@ return {
             lsp_attach = lsp_attach,
             capabilities = require('cmp_nvim_lsp').default_capabilities()
         })
+
+        -- Get the correct location for typescript library
+        local os_name = vim.loop.os_uname().sysname
+        local tspath
+
+        -- linux
+        if os_name == "Linux" then
+            tspath = "/home/lukas/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib/"
+            -- macOS
+        elseif os_name == "Darwin" then
+            tspath = "/Users/lukas/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib/"
+        end
 
         ------
         --- Format on Save
@@ -65,8 +84,7 @@ return {
                 },
                 typescript = {
                     -- setting the typescript location manually prevents "Can't find typescript.js or tsserverlibrary.js" errors
-                    tsdk =
-                    "/home/lukas/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib/"
+                    tsdk = tspath
                 }
             }
         })
