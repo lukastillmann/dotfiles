@@ -34,6 +34,11 @@ return {
                         .. "- Keep your answer short and concise. Use no more than one or two paragraphs of text.\n"
                         .. "- Give code examples whenever possible \n"
                 },
+            },
+            providers = {
+                ollama = {
+                    endpoint = "http://localhost:11434/v1/chat/completions",
+                },
             }
 
         }
