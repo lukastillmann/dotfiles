@@ -10,6 +10,7 @@ local opt = vim.opt -- Set options (global/buffer/windows-scoped)
 -----------------------------------------------------------
 opt.mouse = "a"                               -- Enable mouse support
 opt.completeopt = "menuone,noinsert,noselect" -- Autocomplete options
+opt.clipboard = "unnamedplus"                 -- Enable yanking to clipboard on macos
 opt.path = vim.o.path .. "**"                 -- search down into subfolders
 
 opt.swapfile = false
@@ -37,6 +38,8 @@ opt.cmdheight = 1     -- set cmdheight to two lines
 opt.incsearch = true
 opt.hlsearch = true
 opt.visualbell = true -- disable beep sound
+
+vim.opt.undofile = true
 
 -----------------------------------------------------------
 -- Folding
