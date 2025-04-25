@@ -21,6 +21,7 @@ return {
             callback = function()
                 set_mark('w', vim.fn.getcwd, 'Working directory') -- callable
                 set_mark('l', logbook_dir, 'Logbook')
+                set_mark('c', '~/dotfiles/nvim-config/lua', 'Neovim Config')
                 set_mark('~', '~', 'Home directory')
             end,
         })
