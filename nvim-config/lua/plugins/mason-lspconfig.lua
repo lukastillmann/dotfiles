@@ -1,13 +1,8 @@
+----------------------------------------------------------------------------------------
+--- Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim.
+---
+--- source: https://github.com/williamboman/mason-lspconfig.nvim
+----------------------------------------------------------------------------------------
 return {
     "williamboman/mason-lspconfig.nvim",
-    -- config = function()
-    --     local lsp_zero = require("lsp-zero")
-    --     local opts = {
-    --         -- ensure_installed = { "tsserver", "volar", "pyright", "jsonls" },
-    --         handlers = {
-    --             lsp_zero.default_setup
-    --         }
-    --     }
-    --     require("mason-lspconfig").setup(opts)
-    -- end
 }

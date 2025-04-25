@@ -1,3 +1,10 @@
+----------------------------------------------------------
+-- Portable package manager for Neovim that runs everywhere Neovim runs.
+-- Easily install and manage LSP servers, DAP servers, linters, and formatters.
+--
+-- Source: https://github.com/Robitx/gp.nvim
+-----------------------------------------------------------
+
 return {
     "williamboman/mason.nvim",
     build = ":MasonUpdate", -- :MasonUpdate updates registry contents
@@ -11,6 +18,5 @@ return {
                 package_uninstalled = "✗"
             }
         }
-
     }
 }
