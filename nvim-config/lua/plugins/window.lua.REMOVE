@@ -5,11 +5,13 @@ Source: https://github.com/anuvyklack/windows.nvim_lsp
 
 --]]
 
+-- REMOVE: This caused lag when switching between panes
+
 return {
     "anuvyklack/windows.nvim",
     dependencies = {
         "anuvyklack/middleclass",
-        -- "anuvyklack/animation.nvim" -- add animations
+        "anuvyklack/animation.nvim" -- add animations
     },
     config = function()
         vim.o.winwidth = 10
