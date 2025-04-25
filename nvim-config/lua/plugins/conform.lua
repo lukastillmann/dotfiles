@@ -53,9 +53,11 @@ return {
                             return false
                         end
 
+                        return true
                         -- this makes sure, the prettier config is read correctly
-                        return vim.fn.filereadable(".prettierrc") == 1 or vim.fn.filereadable(".prettierrc.json") == 1 or
-                            vim.fn.filereadable(".prettierrc.js") == 1
+                        -- HOW? This just returns false if no prettier config is available
+                        -- return vim.fn.filereadable(".prettierrc") == 1 or vim.fn.filereadable(".prettierrc.json") == 1 or
+                        -- vim.fn.filereadable(".prettierrc.js") == 1
                     end,
                 },
                 -- prettierd = {
@@ -80,5 +82,9 @@ return {
         end, { desc = "Format with Conform and LSP Fallback" })
 
         vim.keymap.set("n", "<S-F3>", toggle_format_on_save, { desc = "Toggle Format on Save" })
+
+        vim.api.nvim_create_user_command('ToggleFormatOnSave', function()
+            toggle_format_on_save()
+        end, {})
     end
 }
