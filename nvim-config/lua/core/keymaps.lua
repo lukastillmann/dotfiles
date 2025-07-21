@@ -85,8 +85,11 @@ vim.api.nvim_create_user_command("FluidCleanup", function(opts)
         line = line:gsub("fluid%-base", "fluid")
         line = line:gsub("fluid%-1%-pair", "fluid")
         line = line:gsub("fluid%-2%-pair", "fluid")
+        line = line:gsub("role-space-fluid", "oon-space-fluid")
+        line = line:gsub("role-shape-fluid", "oon-space-fluid")
+        line = line:gsub("fluid-font-type", "fluid-font")
         line = line:gsub(",%s%d+px", "")
-
+        line = line:gsub(",%s%d+px", "")
         lines[i] = line
     end
 
