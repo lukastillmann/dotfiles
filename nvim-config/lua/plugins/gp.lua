@@ -19,11 +19,23 @@ return {
         local conf = {
             -- For customization, refer to Install > Configuration in the Documentation/Readme
             openai_api_key = os.getenv("OPENAI_API_KEY"),
+            default_command_agent = "anthropic",
+            default_chat_agent = "anthropic",
             agents = {
                 {
-                    name = "ChatGPT4o",
+                    provider = "copilot",
+                    name = "ChatCopilot",
                     chat = true,
-                    command = true,
+                    command = false,
+                    -- string with model name or table with model name and parameters
+                    model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+                    -- system prompt (use this to specify the persona/role of the AI)
+                    system_prompt = require("gp.defaults").chat_system_prompt,
+                },
+                {
+                    name = "ChatGPT4o",
+                    chat = false,
+                    command = false,
                     -- string with model name or table with model name and parameters
                     model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
                     -- system prompt (use this to specify the persona/role of the AI)
@@ -36,9 +48,22 @@ return {
                 },
             },
             providers = {
+                anthropic = {
+                    endpoint = "https://api.anthropic.com/v1/messages",
+                    secret = os.getenv("ANTHROPIC_API_KEY"),
+                },
                 ollama = {
                     endpoint = "http://localhost:11434/v1/chat/completions",
                 },
+                copilot = {
+                    endpoint = "https://api.githubcopilot.com/chat/completions",
+                    secret = {
+                        "bash",
+                        "-c",
+                        "cat ~/.config/github-copilot/hosts.json | sed -e 's/.*oauth_token...//;s/\".*//'",
+                    },
+                },
+
             }
 
         }
