@@ -43,7 +43,7 @@ const main = async () => {
         /* Check if branch exists. Throws an error if branch doesn't exist */
         const branchExists = await execShellCommand(
             cmd.branchExists(branchName),
-            `Branch ${branchName} does not exist`
+            `Branch ${branchName} does not exist`,
         );
 
         await execShellCommand(cmd.checkoutBranch(branchName.replace("remotes/origin/", "")));
