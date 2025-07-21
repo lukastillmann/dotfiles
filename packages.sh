@@ -19,7 +19,7 @@ sudo a2enmod rewrite
 sudo service apache2 start
 
 echo 'installing useful tools'
-sudo apt install -y unzip keychain
+#sudo apt install -y unzip keychain
 
 echo 'installing nvm'
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
@@ -35,7 +35,7 @@ sudo npm install -g prettier @fsouza/prettierd gulp-cli
 sudo npm i -g vscode-langservers-extracted
 
 echo 'installing neovim'
-sudo ./install_scripts/install_neovim.sh
+#sudo ./install_scripts/install_neovim.sh
 
 #echo 'installing vim-plug'
 #curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -51,8 +51,8 @@ sudo ./install_scripts/install_neovim.sh
 echo 'fixing python issues with coc and nvim'
 python3 -m pip install --user --upgrade pynvim
 
-echo 'installing ripgrep'
-sudo apt-get install -y ripgrep
+#echo 'installing ripgrep'
+#sudo apt-get install -y ripgrep
 
 echo 'installing lazygit'
 sudo ./install_scripts/install_lazygit.sh
