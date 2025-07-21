@@ -1,5 +1,5 @@
 -----------------------------------------------------------
--- Autocomplection
+-- Autocompletion
 -----------------------------------------------------------
 
 return {
@@ -28,7 +28,9 @@ return {
             sources = cmp.config.sources({
                 { name = "nvim_lsp" },
                 { name = "luasnip" },
-                { name = "buffer" }
+                { name = "buffer" },
+                { name = "copilot" },
+                { name = "codecompanion" }
             }),
             completion = {
                 completeopt = "menu,menuone,noinsert",
