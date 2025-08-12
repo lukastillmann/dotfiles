@@ -1,0 +1,181 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# JIRA Branch Manager
+# Streamlines the process of starting work on JIRA issues by automatically
+# transitioning issues and managing git branches. If a branch for the issue
+# already exists, it simply checks out the existing branch without re-transitioning.
+#
+# Usage: jira-branch KEY-123 [suffix]
+# - Transitions the Jira issue to "In Progress" (only if no existing branch)
+# - Creates or checks out a git branch named KEY-123 or KEY-123-suffix in the current repo
+
+# Global variables
+ISSUE_KEY=""
+BRANCH_SUFFIX=""
+EXISTING_BRANCH=""
+TRANSITION_ID=""
+TRANSITION_NAME=""
+
+# Known transition IDs to try first (common "In Progress" transition IDs)
+KNOWN_TRANSITION_IDS=("101")
+
+validate_environment() {
+  # Parse arguments
+  ISSUE_KEY="${1:-}"
+  BRANCH_SUFFIX="${2:-}"
+
+  if [[ -z "$ISSUE_KEY" ]]; then
+    echo "Usage: jira-start <ISSUE-KEY> [suffix] (e.g., KEY-123 or KEY-123 feature-name)" >&2
+    exit 1
+  fi
+
+  # Validate required environment variables exist
+  need_var "JIRA_BASE_URL" "$JIRA_BASE_URL"
+  need_var "JIRA_EMAIL" "$JIRA_EMAIL"
+  need_var "JIRA_API_TOKEN" "$JIRA_API_TOKEN"
+
+  # Ensure required tools exist
+  for cmd in curl jq git; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+      echo "Required command not found: $cmd" >&2
+      exit 3
+    fi
+  done
+
+  # Verify we are inside a git repository
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Not inside a git repository. Please run from your project root." >&2
+    exit 4
+  fi
+}
+
+need_var() {
+  local name="$1" value="$2"
+  if [[ -z "$value" ]]; then
+    echo "Missing $name. Please export it in your shell (e.g. ~/.zshrc):" >&2
+    case "$name" in
+      JIRA_BASE_URL)
+        echo "  export JIRA_BASE_URL=\"https://your-domain.atlassian.net\"" >&2 ;;
+      JIRA_EMAIL)
+        echo "  export JIRA_EMAIL=\"you@example.com\"" >&2 ;;
+      JIRA_API_TOKEN)
+        echo "  export JIRA_API_TOKEN=\"<your_api_token>\"" >&2 ;;
+    esac
+    exit 2
+  fi
+}
+
+check_existing_branch() {
+  EXISTING_BRANCH=$(git branch --list "$ISSUE_KEY*" | head -1 | sed 's/^[ *]*//')
+  
+  if [[ -n "$EXISTING_BRANCH" ]]; then
+    echo "Branch '$EXISTING_BRANCH' already exists for issue $ISSUE_KEY."
+    echo "JIRA Issue URL: $JIRA_BASE_URL/browse/$ISSUE_KEY"
+    echo "Checking out existing branch without transitioning issue..."
+    git checkout "$EXISTING_BRANCH"
+    return 0  # Branch exists
+  fi
+  
+  return 1  # No existing branch
+}
+
+handle_jira_transition() {
+  local transitions_url="$JIRA_BASE_URL/rest/api/3/issue/$ISSUE_KEY/transitions"
+  
+  # Echo the JIRA issue URL for easy access
+  echo "JIRA Issue URL: $JIRA_BASE_URL/browse/$ISSUE_KEY"
+  
+  # Fetch available transitions
+  local transitions_json
+  transitions_json=$(curl -sS -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
+    -H 'Accept: application/json' \
+    "$transitions_url")
+
+  # Check if we got any transitions
+  local transition_count
+  transition_count=$(echo "$transitions_json" | jq -r '.transitions | length')
+  if [[ "$transition_count" -eq 0 ]]; then
+    echo "No transitions available for $ISSUE_KEY." >&2
+    exit 5
+  fi
+
+  # Try to find a known transition ID first
+  TRANSITION_ID=""
+  TRANSITION_NAME=""
+
+  for known_id in "${KNOWN_TRANSITION_IDS[@]}"; do
+    if echo "$transitions_json" | jq -e ".transitions[] | select(.id == \"$known_id\")" >/dev/null 2>&1; then
+      TRANSITION_ID="$known_id"
+      TRANSITION_NAME=$(echo "$transitions_json" | jq -r ".transitions[] | select(.id == \"$known_id\") | .name")
+      echo "Using known transition: $TRANSITION_NAME (ID: $TRANSITION_ID)"
+      break
+    fi
+  done
+
+  # If no known transition found, prompt user to select
+  if [[ -z "$TRANSITION_ID" ]]; then
+    echo "No known transition IDs found. Available transitions for $ISSUE_KEY:"
+    echo "$transitions_json" | jq -r '.transitions[] | "\(.id): \(.name)"' | nl -v0
+
+    # Prompt user to select a transition
+    echo
+    read -p "Select transition number (0-$((transition_count-1))): " selection
+
+    # Validate selection
+    if ! [[ "$selection" =~ ^[0-9]+$ ]] || [[ "$selection" -lt 0 ]] || [[ "$selection" -ge "$transition_count" ]]; then
+      echo "Invalid selection. Please enter a number between 0 and $((transition_count-1))." >&2
+      exit 5
+    fi
+
+    # Get the transition ID for the selected option
+    TRANSITION_ID=$(echo "$transitions_json" | jq -r ".transitions[$selection].id")
+    TRANSITION_NAME=$(echo "$transitions_json" | jq -r ".transitions[$selection].name")
+
+    echo "Selected transition: $TRANSITION_NAME"
+  fi
+
+  # Perform the transition
+  local http_code
+  http_code=$(curl -sS -o /dev/null -w "%{http_code}" -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
+    -H 'Content-Type: application/json' \
+    -X POST "$transitions_url" \
+    --data "{\"transition\": {\"id\": \"$TRANSITION_ID\"}}")
+
+  if [[ "$http_code" != "204" ]]; then
+    echo "Failed to transition $ISSUE_KEY (HTTP $http_code)." >&2
+    exit 6
+  fi
+
+  echo "Transitioned $ISSUE_KEY to '$TRANSITION_NAME'."
+}
+
+create_new_branch() {
+  local branch_name
+  if [[ -n "$BRANCH_SUFFIX" ]]; then
+    branch_name="$ISSUE_KEY-$BRANCH_SUFFIX"
+  else
+    branch_name="$ISSUE_KEY"
+  fi
+  
+  echo "Creating and switching to branch '$branch_name'..."
+  git checkout -b "$branch_name"
+}
+
+main() {
+  validate_environment "$@"
+  
+  if check_existing_branch; then
+    # Existing branch found, already checked out
+    echo "Done. Current branch: $(git rev-parse --abbrev-ref HEAD)"
+  else
+    # No existing branch, proceed with transition and create new branch
+    handle_jira_transition
+    create_new_branch
+    echo "Done. Current branch: $(git rev-parse --abbrev-ref HEAD)"
+  fi
+}
+
+# Run main function with all arguments
+main "$@"
+
