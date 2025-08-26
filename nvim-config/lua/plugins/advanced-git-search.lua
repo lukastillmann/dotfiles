@@ -18,5 +18,13 @@
 
 return {
     "aaronhallaert/advanced-git-search.nvim",
-    requires = { "nvim-telescope/telescope.nvim", "tpope/vim-fugitive" },
+    cmd = { "AdvancedGitSearch" },
+    config = function()
+        require("advanced_git_search.snacks").setup {
+            -- Insert Config here
+        }
+    end,
+    dependencies = {
+        "folke/snacks.nvim"
+    },
 }
