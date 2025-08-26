@@ -75,6 +75,20 @@ map("n", "<leader>k", ":new<cr>")
 
 map("n", "<C-l>r", "<cmd>LspRestart<cr>");
 
+-- Terminal mode toggle for German keyboard layout
+-- Using <C-#> instead of <C-\> since # is easier to access on German keyboards
+
+-- Map Ctrl+# to escape from terminal mode to normal mode
+vim.keymap.set('t', '<leader>#', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+-- Optional: Map Ctrl+# in normal mode to enter terminal mode (if in a terminal buffer)
+vim.keymap.set('n', '<leader>#', function()
+    -- Check if current buffer is a terminal
+    if vim.bo.buftype == 'terminal' then
+        vim.cmd('startinsert')
+    end
+end, { desc = 'Enter terminal mode' })
+
 vim.api.nvim_create_user_command("FluidCleanup", function(opts)
     local start_line = opts.line1 - 1 -- Lua is 0-indexed
     local end_line = opts.line2       -- exclusive
