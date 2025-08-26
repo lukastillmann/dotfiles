@@ -6,10 +6,7 @@
 -----------------------------------------------------------
 
 return {
-    "williamboman/mason.nvim",
-    build = ":MasonUpdate", -- :MasonUpdate updates registry contents
-    cmd = "Mason",
-    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+    "mason-org/mason.nvim",
     opts = {
         ui = {
             icons = {
@@ -17,6 +14,6 @@ return {
                 package_pending = "➜",
                 package_uninstalled = "✗"
             }
-        }
+        },
     }
 }
