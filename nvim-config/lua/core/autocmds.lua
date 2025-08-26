@@ -51,3 +51,22 @@ autocmd("FileType", {
 vim.cmd([[
   autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, { focus = false })
 ]])
+
+-- Set conceallevel conditionally
+-- I want conceallevel=0 whenever I am editing a file, because I want to see all characters while editing.
+-- When the buffer is not active, conceallevel can be set
+-- (this is necessary, because some plugin sets the conceallevel in json and md file. I don't know which).
+
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+    pattern = { "*.md", "*.json" },
+    callback = function()
+        vim.opt_local.conceallevel = 0
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave" }, {
+    pattern = { "*.md", "*.json" },
+    callback = function()
+        vim.opt_local.conceallevel = 3
+    end,
+})
