@@ -1,53 +1,59 @@
 return {
     'saghen/blink.cmp',
-    -- optional: provides snippets for the snippet source
-    dependencies = { 'rafamadriz/friendly-snippets' },
-
-    -- use a release tag to download pre-built binaries
-    version = '1.*',
-    -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-    -- build = 'cargo build --release',
-    -- If you use nix, you can build from source using latest nightly rust with:
-    -- build = 'nix run .#build-plugin',
-
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
-    opts = {
-        -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
-        -- 'super-tab' for mappings similar to vscode (tab to accept)
-        -- 'enter' for enter to accept
-        -- 'none' for no mappings
-        --
-        -- All presets have the following mappings:
-        -- C-space: Open menu or open docs if already open
-        -- C-n/C-p or Up/Down: Select next/previous item
-        -- C-e: Hide menu
-        -- C-k: Toggle signature help (if signature.enabled = true)
-        --
-        -- See :h blink-cmp-config-keymap for defining your own keymap
-        keymap = { preset = 'super-tab' },
-
-        appearance = {
-            -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-            -- Adjusts spacing to ensure icons are aligned
-            nerd_font_variant = 'mono'
-        },
-
-        -- (Default) Only show the documentation popup when manually triggered
-        completion = { documentation = { auto_show = false } },
-
-        -- Default list of enabled providers defined so that you can extend it
-        -- elsewhere in your config, without redefining it, due to `opts_extend`
-        sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer' },
-        },
-
-        -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
-        -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
-        -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
-        --
-        -- See the fuzzy documentation for more information
-        fuzzy = { implementation = "prefer_rust_with_warning" }
+    dependencies = {
+        'rafamadriz/friendly-snippets',
+        'milanglacier/minuet-ai.nvim',
     },
+    version = '1.*',
+    config = function()
+        require('blink.cmp').setup({
+            keymap = {
+                preset = 'none', -- options: "enter" ] "super-tab" | "default" | "none" to set your own
+                -- ['<A-y>'] = require('minuet').make_blink_map(),
+
+                ['<Tab>'] = { 'select_next', 'fallback' },
+                ['<S-Tab>'] = { 'select_prev', 'fallback' },
+                ['<CR>'] = { 'accept', 'fallback' },
+
+                -- Optional: for better UX
+                ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+                ['<C-e>'] = { 'hide' },
+
+                -- Keep arrow keys as alternative navigation
+                ['<Up>'] = { 'select_prev', 'fallback' },
+                ['<Down>'] = { 'select_next', 'fallback' },
+            },
+            appearance = {
+                nerd_font_variant = 'mono'
+            },
+            completion = {
+                documentation = { auto_show = true },
+                -- trigger = {
+                --     prefetch_on_insert = false
+                -- }
+                menu = {
+                    draw = {
+                        columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 2 } }
+                    }
+                }
+            },
+            sources = {
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
+                providers = {
+                    minuet = {
+                        name = 'minuet',
+                        module = 'minuet.blink',
+                        async = true,
+                        timeout_ms = 3000,
+                        score_offset = 50,
+                    },
+                },
+            },
+            fuzzy = { implementation = "lua" },
+            signature = {
+                enabled = true
+            }
+        })
+    end,
     opts_extend = { "sources.default" }
 }
