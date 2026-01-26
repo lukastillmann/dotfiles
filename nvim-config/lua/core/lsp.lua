@@ -84,6 +84,11 @@ local vue_ls_config = {}
 vim.lsp.config("vue_ls", vue_ls_config)
 vim.lsp.config("ts_ls", ts_ls_config)
 vim.lsp.config("lua_ls", lua_ls_config)
+vim.lsp.config("eslint", {})
+vim.lsp.config("html", {})
+vim.lsp.config("cssls", {})
+vim.lsp.config("html", {})
+vim.lsp.config("astro", {})
 
 -- enable language servers
 vim.lsp.enable({
@@ -94,7 +99,11 @@ vim.lsp.enable({
     "html",
     "cssls",
     "vue_ls",
+    "astro",
+    "copilot"
 })
+
+-- vim.lsp.inline_completion.enable()
 
 -- NOT NEEDED ANY MORE
 -- Get the correct location for typescript library
