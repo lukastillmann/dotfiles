@@ -104,6 +104,10 @@ vim.api.nvim_create_user_command("FluidCleanup", function(opts)
         line = line:gsub("fluid-font-type", "fluid-font")
         line = line:gsub(",%s%d+px", "")
         line = line:gsub(",%s%d+px", "")
+        -- Remove defaults from CSS variables: var(--my-variable, 12.4px) -> var(--my-variable)
+        line = line:gsub("var%(%-%-([^,]+),%s*[^%)]+%)", "var(--%1)")
+        -- Replace oon-space with mosaik-role-space
+        line = line:gsub("oon%-space", "mosaik%-role%-space")
         lines[i] = line
     end
 
