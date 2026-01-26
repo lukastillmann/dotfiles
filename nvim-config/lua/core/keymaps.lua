@@ -58,8 +58,8 @@ map("n", "<F1>", "<Nop>")
 -- resize panes with arrow keys
 map("n", "<Right>", ":vertical resize +5<cr>")
 map("n", "<Left>", ":vertical resize -5<cr>")
-map("n", "<Up>", "resize +5<cr>")
-map("n", "<Down>", "resize -5<cr>")
+map("n", "<Up>", ":resize +5<cr>")
+map("n", "<Down>", ":resize -5<cr>")
 
 -- split tmux panes
 map("n", "<C-W><C-J>", "<C-W>s<C-W><C-J>")
