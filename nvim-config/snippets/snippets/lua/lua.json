@@ -1,0 +1,6 @@
+{
+    "print": {
+        "prefix": "pr",
+        "body": ["print(${0})"]
+    }
+}

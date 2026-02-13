@@ -1,0 +1,48 @@
+{
+    "Vue Custom SFC setup": {
+        "prefix": "vbase-3-custom-setup",
+        "body": [
+            "<template>",
+            "\t<div class=\"${TM_FILENAME_BASE/(^[A-Z])|(?<=[a-z0-9])([A-Z])/${1:/downcase}${2:+-}${2:/downcase}/g}\">",
+            "\t\t$0",
+            "\t</div>",
+            "</template>",
+            "",
+            "<script setup lang=\"ts\">",
+            "",
+            "</script>",
+            "",
+            "<style lang=\"scss\" scoped>",
+            ".${TM_FILENAME_BASE/(^[A-Z])|(?<=[a-z0-9])([A-Z])/${1:/downcase}${2:+-}${2:/downcase}/g} {",
+            "",
+            "}",
+            "</style>"
+        ],
+        "description": "Base for Vue File Setup Composition API with SCSS"
+    },
+    "Vue SCSS Viewport Includes": {
+        "prefix": "include_mosaik_viewports",
+        "body": [
+            "@include mq(\\$from: sm) {",
+            "\t$0",
+            "}",
+            "",
+            "@include mq(\\$from: md) {",
+            "\t",
+            "}",
+            "",
+            "@include mq(\\$from: lg) {",
+            "\t",
+            "}",
+            "",
+            "@include mq(\\$from: xl) {",
+            "\t",
+            "}",
+            "",
+            "@include mq(\\$from: xxl) {",
+            "\t",
+            "}",
+            ""
+        ]
+    }
+}

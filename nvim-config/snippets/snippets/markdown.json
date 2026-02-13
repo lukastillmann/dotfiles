@@ -1,0 +1,21 @@
+{
+    "Insert Todo": {
+        "prefix": ["todo", "t"],
+        "body": "- [ ] ",
+        "description": "Insert Todo"
+    },
+    "Devlog": {
+        "prefix": "devlog",
+        "body": [
+            "# $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE - $CURRENT_DAY_NAME",
+            "",
+            "## Geplant",
+            "",
+            "- [ ] $1",
+            "",
+            "## Ungeplant",
+            "",
+            "## Meetings"
+        ]
+    }
+}
