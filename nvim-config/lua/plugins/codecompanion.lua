@@ -14,7 +14,7 @@ return {
         vim.cmd([[cab cc CodeCompanion]])
 
         require("codecompanion").setup({
-            strategies = {
+            interactions = {
                 chat = {
                     adapter = "anthropic",
                 },
@@ -26,12 +26,39 @@ return {
                 },
             },
             adapters = {
+                http = {
+                    anthropic = function()
+                        return require("codecompanion.adapters").extend("anthropic", {
+                            env = {
+                                api_key = "cmd:cat ~/secrets/anthropic",
+                            },
+                        })
+                    end,
+                    -- overwrite ollama, for some reason this seems to be necessary
+                    ollama = function()
+                        return require("codecompanion.adapters").extend("openai_compatible", {
+                            env = {
+                                url = "http://localhost:1234",
+                            },
+                        })
+                    end,
+                },
                 acp = {
+                    claude_code = function()
+                        return require("codecompanion.adapters").extend("claude_code", {
+                            env = {
+                                ANTHROPIC_API_KEY = "cmd:cat ~/secrets/anthropic",
+                            },
+                        })
+                    end,
                     gemini_cli = function()
                         return require("codecompanion.adapters").extend("gemini_cli", {
-                            env = {
-                                api_key = "GEMINI_API_KEY",
+                            defaults = {
+                                auth_method = "oauth-personal"
                             },
+                            -- env = {
+                            --     api_key = "GEMINI_API_KEY",
+                            -- },
                         })
                     end,
                 },
@@ -43,7 +70,7 @@ return {
                 }
             },
             opts = {
-                log_level = "INFO",                   -- TRACE|DEBUG|ERROR|INFO
+                log_level = "INFO", -- TRACE|DEBUG|ERROR|INFO
             },
             extensions = {
                 mcphub = {
@@ -60,7 +87,7 @@ return {
                     strategy = "chat",
                     description = "Quick responses and short answers",
                     opts = {
-                        short_name = "quickhelp",
+                        alias = "quickhelp",
                         auto_submit = false,
                         ignore_system_prompt = true
                     },
@@ -88,7 +115,7 @@ return {
                     strategy = "chat",
                     description = "Add Code comments",
                     opts = {
-                        short_name = "code_comment",
+                        alias = "code_comment",
                         auto_submit = true,
                     },
                     prompts = {
@@ -113,7 +140,7 @@ return {
                     opts = {
                         mapping = "<leader>ce",
                         modes = { "v" },
-                        short_name = "expert",
+                        alias = "expert",
                         auto_submit = true,
                         stop_context_insertion = true,
                         user_prompt = true,
