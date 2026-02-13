@@ -45,7 +45,11 @@ vim.opt.undofile = true
 -- Folding
 -----------------------------------------------------------
 
+-- Enable folding via lsp (default 'foldmarker')
 opt.foldmethod = "indent" -- Enable folding (default 'foldmarker')
+-- opt.foldmethod = "expr"
+-- opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+
 opt.foldnestmax = 10
 opt.foldlevelstart = 10
 
