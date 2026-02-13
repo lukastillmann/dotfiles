@@ -31,10 +31,13 @@ vim.api.nvim_create_user_command('Log', function()
 
     if dir then
         -- Configure the popup window dimensions and position
-        local width = math.floor(vim.o.columns * 0.8)
-        local height = math.floor(vim.o.lines * 0.8)
+        local width = math.min(120, math.floor(vim.o.columns * 0.85))
+        local height = math.min(40, math.floor(vim.o.lines * 0.85))
         local row = math.floor((vim.o.lines - height) / 2)
         local col = math.floor((vim.o.columns - width) / 2)
+
+
+        local filename = vim.fn.trim(vim.fn.system('date "+%Y-%m-%d"'))
 
         -- Create a floating window
         local buf = vim.api.nvim_create_buf(false, true) -- Create a scratch buffer
@@ -44,10 +47,12 @@ vim.api.nvim_create_user_command('Log', function()
             height = height,
             row = row,
             col = col,
-            style = 'minimal'
+            style = 'minimal',
+            border = 'rounded',
+            title = ' Log: ' .. filename .. '.md ',
+            title_pos = 'center'
         })
 
-        local filename = vim.fn.trim(vim.fn.system('date "+%Y-%m-%d"'))
 
         -- Use vim to open the file
         vim.cmd('edit ' .. dir .. '/' .. filename .. '.md')
