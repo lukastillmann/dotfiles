@@ -5,6 +5,30 @@ return {
         "nvim-treesitter/nvim-treesitter",
     },
     config = function()
+        local function patch_mcphub_codecompanion_compat()
+            local ok, variables = pcall(require, "mcphub.extensions.codecompanion.variables")
+            if not ok or variables._cc_editor_context_compat then
+                return
+            end
+
+            local register = variables.register
+            variables.register = function(opts)
+                local config_ok, config = pcall(require, "codecompanion.config")
+                if config_ok then
+                    config.interactions = config.interactions or {}
+                    config.interactions.chat = config.interactions.chat or {}
+                    config.interactions.chat.editor_context = config.interactions.chat.editor_context or {}
+                    config.interactions.chat.variables = config.interactions.chat.variables
+                        or config.interactions.chat.editor_context
+                end
+
+                return register(opts)
+            end
+            variables._cc_editor_context_compat = true
+        end
+
+        patch_mcphub_codecompanion_compat()
+
         vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
         vim.keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>",
             { noremap = true, silent = true })

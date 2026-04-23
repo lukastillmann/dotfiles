@@ -13,13 +13,13 @@ return {
         {
             -- "<leader>i",
             "<tab>",
-            ":BufferLineCyclePrev<cr>",
-            desc = "Cycle through buffers left. (Mnemonic: overlaps with jumplist navigation <C-i>)",
+            ":BufferLineCycleNext<cr>",
+            desc = "Cycle through buffers right.",
         },
         {
             "<S-tab>",
-            ":BufferLineCycleNext<cr>",
-            desc = "Cycle through buffers right. (Mnemonic: overlaps with jumplist navigation <C-o>)",
+            ":BufferLineCyclePrev<cr>",
+            desc = "Cycle through buffers left.",
         },
     },
 }
