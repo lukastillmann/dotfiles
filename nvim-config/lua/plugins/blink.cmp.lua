@@ -2,14 +2,12 @@ return {
     'saghen/blink.cmp',
     dependencies = {
         'rafamadriz/friendly-snippets',
-        'milanglacier/minuet-ai.nvim',
     },
     version = '1.*',
     config = function()
         require('blink.cmp').setup({
             keymap = {
                 preset = 'none', -- options: "enter" ] "super-tab" | "default" | "none" to set your own
-                -- ['<A-y>'] = require('minuet').make_blink_map(),
 
                 ['<Tab>'] = { 'select_next', 'fallback' },
                 ['<S-Tab>'] = { 'select_prev', 'fallback' },
@@ -35,19 +33,17 @@ return {
                     draw = {
                         columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 2 } }
                     }
+                },
+                list = {
+                    selection = {
+                        preselect = false,
+                        auto_insert = false,
+                    }
                 }
             },
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
-                providers = {
-                    minuet = {
-                        name = 'minuet',
-                        module = 'minuet.blink',
-                        async = true,
-                        timeout_ms = 3000,
-                        score_offset = 50,
-                    },
-                },
+                providers = {},
             },
             fuzzy = { implementation = "lua" },
             signature = {

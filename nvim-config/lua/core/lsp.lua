@@ -89,6 +89,7 @@ vim.lsp.config("html", {})
 vim.lsp.config("cssls", {})
 vim.lsp.config("html", {})
 vim.lsp.config("astro", {})
+vim.lsp.config("denols", {})
 
 -- enable language servers
 vim.lsp.enable({
@@ -100,7 +101,8 @@ vim.lsp.enable({
     "cssls",
     "vue_ls",
     "astro",
-    "copilot"
+    "copilot",
+    "denols"
 })
 
 -- vim.lsp.inline_completion.enable()
