@@ -1,5 +1,6 @@
 return {
     "lowitea/aw-watcher.nvim",
+    event = "VeryLazy",
     opts = { -- required, but can be empty table: {}
         -- add any options here
         -- for example:

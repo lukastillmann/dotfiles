@@ -1,12 +1,10 @@
-vim.keymap.set("n", "tt", ":HATodoOpen<cr>", {
-    noremap = true,
-    silent = true,
-    desc = "Open [T]odo List"
-})
-
 return {
     dir = "/Users/lukas/homeassistant-nvim",
     name = "ha_todo",
+    cmd = "HATodoOpen",
+    keys = {
+        { "tt", "<cmd>HATodoOpen<cr>", desc = "Open [T]odo List" },
+    },
     config = function()
         require("ha_todo").setup({
             instance = {

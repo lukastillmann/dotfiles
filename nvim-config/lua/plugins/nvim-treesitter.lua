@@ -9,7 +9,7 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        lazy = false,
+        event = { "BufReadPost", "BufNewFile" },
         config = function()
             local opts = {
                 ensure_installed = {

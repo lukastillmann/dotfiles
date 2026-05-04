@@ -15,6 +15,7 @@ end
 
 return {
     "robitx/gp.nvim",
+    cmd = { "GpChat", "GpChatNew", "GpNew", "GpAppend", "GpPrepend", "GpRewrite", "GpAgent" },
     config = function()
         local conf = {
             -- For customization, refer to Install > Configuration in the Documentation/Readme
