@@ -4,12 +4,6 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
     },
-    cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat" },
-    keys = {
-        { "<leader>ca", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" }, desc = "CodeCompanion Actions" },
-        { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" }, desc = "CodeCompanion Chat" },
-        { "<leader>ga", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "CodeCompanion Add" },
-    },
     config = function()
         local function patch_mcphub_codecompanion_compat()
             local ok, variables = pcall(require, "mcphub.extensions.codecompanion.variables")
@@ -35,6 +29,12 @@ return {
 
         patch_mcphub_codecompanion_compat()
 
+        vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+        vim.keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>",
+            { noremap = true, silent = true })
+        vim.keymap.set("v", "<leader>ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
+
+        -- Expand 'cc' into 'CodeCompanion' in the command line
         vim.cmd([[cab cc CodeCompanion]])
 
         require("codecompanion").setup({
