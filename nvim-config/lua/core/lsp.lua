@@ -1,12 +1,14 @@
 local default_keymaps = {
     { keys = "K",    func = vim.lsp.buf.hover,       desc = "Documentation",   has = "hoverProvider" },
     { keys = "gd",   func = vim.lsp.buf.definition,  desc = "Goto Definition", has = "definitionProvider" },
+    { keys = "gi",   func = vim.lsp.buf.implementation, desc = "Goto Implementation", has = "implementationProvider" },
     -- { keys = "<leader>ca", func = vim.lsp.buf.code_action, desc = "Code Actions" },
     { keys = "<F4>", func = vim.lsp.buf.code_action, desc = "Code Actions" },
     -- { keys = "<leader>.",  func = vim.lsp.buf.code_action, desc = "Code Actions" },
     -- { keys = "<leader>cA", func = M.action.source,         desc = "Source Actions" },
     { keys = "<F2>", func = vim.lsp.buf.rename,      desc = "Code Rename" },
-    { keys = "K",    func = vim.lsp.buf.hover,       desc = "Documentation",   has = "hoverProvider" },
+    { keys = "<leader>rn", func = vim.lsp.buf.rename, desc = "Code Rename" },
+    { keys = "<C-k>", func = vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelpProvider" },
     { keys = "gr",   func = vim.lsp.buf.references,  desc = "References" }
 }
 
@@ -29,6 +31,7 @@ end
 -- })
 
 vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspKeymaps', {}),
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         on_attach(client, args.buf)
