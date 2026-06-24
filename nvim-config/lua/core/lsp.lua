@@ -8,7 +8,6 @@ local default_keymaps = {
     -- { keys = "<leader>cA", func = M.action.source,         desc = "Source Actions" },
     { keys = "<F2>", func = vim.lsp.buf.rename,      desc = "Code Rename" },
     { keys = "<leader>rn", func = vim.lsp.buf.rename, desc = "Code Rename" },
-    { keys = "<C-k>", func = vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelpProvider" },
     { keys = "gr",   func = vim.lsp.buf.references,  desc = "References" }
 }
 
