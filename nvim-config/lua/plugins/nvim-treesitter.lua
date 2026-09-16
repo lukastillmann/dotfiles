@@ -8,12 +8,35 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
         build = ":TSUpdate",
         lazy = false,
         config = function()
-            local opts = {
-                ensure_installed = {
+            require("nvim-treesitter").install({
+                "bash",
+                "c",
+                "css",
+                "scss",
+                "html",
+                "javascript",
+                "json",
+                "lua",
+                "markdown",
+                "markdown_inline",
+                "python",
+                "query",
+                "regex",
+                "tsx",
+                "typescript",
+                "vim",
+                "vue",
+                "yaml",
+            })
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = {
                     "bash",
+                    "sh",
                     "c",
                     "css",
                     "scss",
@@ -22,19 +45,18 @@ return {
                     "json",
                     "lua",
                     "markdown",
-                    "markdown_inline",
                     "python",
                     "query",
-                    "regex",
-                    "tsx",
                     "typescript",
+                    "typescriptreact",
                     "vim",
                     "vue",
                     "yaml",
                 },
-                highlight = { enable = true },
-            }
-            require("nvim-treesitter.configs").setup(opts)
+                callback = function()
+                    vim.treesitter.start()
+                end,
+            })
         end,
     },
 }
